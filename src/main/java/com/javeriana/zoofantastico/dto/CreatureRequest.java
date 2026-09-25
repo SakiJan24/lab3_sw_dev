@@ -34,3 +34,4 @@ public class CreatureRequest {
     @NotNull(message = "El ID de la zona (zoneId) es obligatorio")
     private Long zoneId;
 }
+

@@ -21,3 +21,4 @@ public class ZoneRequest {
     @Min(value = 1, message = "La capacidad de la zona debe ser de al menos 1 criatura")
     private int capacity;
 }
+

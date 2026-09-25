@@ -57,3 +57,4 @@ public class CreatureController {
         return ResponseEntity.noContent().build();
     }
 }
+
