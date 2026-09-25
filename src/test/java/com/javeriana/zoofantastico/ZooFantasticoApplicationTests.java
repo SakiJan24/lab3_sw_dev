@@ -1,4 +1,4 @@
-package com.javeriana.zoo_fantastico;
+package com.javeriana.zoofantastico;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
