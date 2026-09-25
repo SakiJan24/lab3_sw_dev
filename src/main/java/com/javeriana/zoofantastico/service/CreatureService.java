@@ -1,9 +1,12 @@
 package com.javeriana.zoofantastico.service;
 
+import com.javeriana.zoofantastico.dto.CreatureRequest;
+import com.javeriana.zoofantastico.dto.CreatureResponse;
 import com.javeriana.zoofantastico.entity.Creature;
 import com.javeriana.zoofantastico.entity.Zone;
 import com.javeriana.zoofantastico.exception.BusinessRuleException;
 import com.javeriana.zoofantastico.exception.ResourceNotFoundException;
+import com.javeriana.zoofantastico.mapper.EntityMapper;
 import com.javeriana.zoofantastico.repository.CreatureRepository;
 import com.javeriana.zoofantastico.repository.ZoneRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -19,46 +23,54 @@ public class CreatureService {
 
     private final CreatureRepository creatureRepository;
     private final ZoneRepository zoneRepository;
+    private final EntityMapper entityMapper;
 
     @Transactional(readOnly = true)
-    public List<Creature> getAllCreatures() {
-        return creatureRepository.findAll();
+    public List<CreatureResponse> getAllCreatures() {
+        return creatureRepository.findAll().stream()
+                .map(entityMapper::toCreatureResponse)
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public Creature getCreatureById(Long id) {
-        return creatureRepository.findById(id)
+    public CreatureResponse getCreatureById(Long id) {
+        Creature creature = creatureRepository.findByIdWithZone(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Creature", "id", id));
+        return entityMapper.toCreatureResponse(creature);
     }
 
-    public Creature createCreature(Creature creature, Long zoneId) {
+    public CreatureResponse createCreature(CreatureRequest request) {
+        Creature creature = entityMapper.toCreatureEntity(request);
         validateCreatureData(creature);
 
-        if (zoneId != null) {
-            Zone zone = zoneRepository.findById(zoneId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Zone", "id", zoneId));
+        if (request.getZoneId() != null) {
+            Zone zone = zoneRepository.findById(request.getZoneId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Zone", "id", request.getZoneId()));
             validateZoneCapacityForNewCreature(zone);
             creature.setZone(zone);
         }
 
-        return creatureRepository.save(creature);
+        Creature savedCreature = creatureRepository.save(creature);
+        return entityMapper.toCreatureResponse(savedCreature);
     }
 
-    public Creature updateCreature(Long id, Creature creatureDetails, Long zoneId) {
-        Creature existingCreature = getCreatureById(id);
-        validateCreatureData(creatureDetails);
+    public CreatureResponse updateCreature(Long id, CreatureRequest request) {
+        Creature existingCreature = creatureRepository.findByIdWithZone(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Creature", "id", id));
 
-        existingCreature.setName(creatureDetails.getName());
-        existingCreature.setSpecies(creatureDetails.getSpecies());
-        existingCreature.setSize(creatureDetails.getSize());
-        existingCreature.setDangerLevel(creatureDetails.getDangerLevel());
-        existingCreature.setHealthStatus(creatureDetails.getHealthStatus());
+        Creature updatedData = entityMapper.toCreatureEntity(request);
+        validateCreatureData(updatedData);
 
-        if (zoneId != null) {
-            Zone newZone = zoneRepository.findById(zoneId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Zone", "id", zoneId));
+        existingCreature.setName(request.getName());
+        existingCreature.setSpecies(request.getSpecies());
+        existingCreature.setSize(request.getSize());
+        existingCreature.setDangerLevel(request.getDangerLevel());
+        existingCreature.setHealthStatus(request.getHealthStatus());
 
-            // Si cambió de zona, validar capacidad de la nueva zona
+        if (request.getZoneId() != null) {
+            Zone newZone = zoneRepository.findById(request.getZoneId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Zone", "id", request.getZoneId()));
+
             Zone currentZone = existingCreature.getZone();
             if (currentZone == null || !currentZone.getId().equals(newZone.getId())) {
                 validateZoneCapacityForNewCreature(newZone);
@@ -68,11 +80,14 @@ public class CreatureService {
             existingCreature.setZone(null);
         }
 
-        return creatureRepository.save(existingCreature);
+        Creature savedCreature = creatureRepository.save(existingCreature);
+        return entityMapper.toCreatureResponse(savedCreature);
     }
 
     public void deleteCreature(Long id) {
-        Creature creature = getCreatureById(id);
+        Creature creature = creatureRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Creature", "id", id));
+
         if ("critical".equalsIgnoreCase(creature.getHealthStatus())) {
             throw new BusinessRuleException("No se puede eliminar una criatura con estado de salud 'critical'");
         }

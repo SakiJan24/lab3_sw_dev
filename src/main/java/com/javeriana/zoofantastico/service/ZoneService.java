@@ -1,8 +1,11 @@
 package com.javeriana.zoofantastico.service;
 
+import com.javeriana.zoofantastico.dto.ZoneRequest;
+import com.javeriana.zoofantastico.dto.ZoneResponse;
 import com.javeriana.zoofantastico.entity.Zone;
 import com.javeriana.zoofantastico.exception.BusinessRuleException;
 import com.javeriana.zoofantastico.exception.ResourceNotFoundException;
+import com.javeriana.zoofantastico.mapper.EntityMapper;
 import com.javeriana.zoofantastico.repository.CreatureRepository;
 import com.javeriana.zoofantastico.repository.ZoneRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,32 +22,49 @@ public class ZoneService {
 
     private final ZoneRepository zoneRepository;
     private final CreatureRepository creatureRepository;
+    private final EntityMapper entityMapper;
 
     @Transactional(readOnly = true)
-    public List<Zone> getAllZones() {
-        return zoneRepository.findAll();
+    public List<ZoneResponse> getAllZones() {
+        return zoneRepository.findAll().stream()
+                .map(zone -> {
+                    long count = creatureRepository.countByZone(zone);
+                    return entityMapper.toZoneResponse(zone, count);
+                })
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public Zone getZoneById(Long id) {
-        return zoneRepository.findById(id)
+    public ZoneResponse getZoneById(Long id) {
+        Zone zone = zoneRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Zone", "id", id));
+        long count = creatureRepository.countByZone(zone);
+        return entityMapper.toZoneResponse(zone, count);
     }
 
-    public Zone createZone(Zone zone) {
-        return zoneRepository.save(zone);
+    public ZoneResponse createZone(ZoneRequest request) {
+        Zone zone = entityMapper.toZoneEntity(request);
+        Zone savedZone = zoneRepository.save(zone);
+        return entityMapper.toZoneResponse(savedZone, 0);
     }
 
-    public Zone updateZone(Long id, Zone zoneDetails) {
-        Zone existingZone = getZoneById(id);
-        existingZone.setName(zoneDetails.getName());
-        existingZone.setDescription(zoneDetails.getDescription());
-        existingZone.setCapacity(zoneDetails.getCapacity());
-        return zoneRepository.save(existingZone);
+    public ZoneResponse updateZone(Long id, ZoneRequest request) {
+        Zone existingZone = zoneRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Zone", "id", id));
+
+        existingZone.setName(request.getName());
+        existingZone.setDescription(request.getDescription());
+        existingZone.setCapacity(request.getCapacity());
+
+        Zone updatedZone = zoneRepository.save(existingZone);
+        long count = creatureRepository.countByZone(updatedZone);
+        return entityMapper.toZoneResponse(updatedZone, count);
     }
 
     public void deleteZone(Long id) {
-        Zone zone = getZoneById(id);
+        Zone zone = zoneRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Zone", "id", id));
+        
         long creatureCount = creatureRepository.countByZone(zone);
         if (creatureCount > 0) {
             throw new BusinessRuleException(
@@ -51,11 +72,5 @@ public class ZoneService {
             );
         }
         zoneRepository.delete(zone);
-    }
-
-    @Transactional(readOnly = true)
-    public long countCreaturesByZone(Long zoneId) {
-        Zone zone = getZoneById(zoneId);
-        return creatureRepository.countByZone(zone);
     }
 }
