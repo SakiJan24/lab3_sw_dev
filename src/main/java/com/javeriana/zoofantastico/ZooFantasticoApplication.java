@@ -1,4 +1,4 @@
-package com.javeriana.zoo_fantastico;
+package com.javeriana.zoofantastico;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
