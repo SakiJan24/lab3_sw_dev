@@ -20,3 +20,4 @@ public class CreatureResponse {
     private String healthStatus;
     private Long zoneId;
 }
+

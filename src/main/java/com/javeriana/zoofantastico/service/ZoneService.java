@@ -52,14 +52,21 @@ public class ZoneService {
         Zone existingZone = zoneRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Zone", "id", id));
 
+        long count = creatureRepository.countByZone(existingZone);
+        if (request.getCapacity() < count) {
+            throw new BusinessRuleException(
+                    String.format("No se puede reducir la capacidad a %d porque la zona tiene actualmente %d criatura(s)", request.getCapacity(), count)
+            );
+        }
+
         existingZone.setName(request.getName());
         existingZone.setDescription(request.getDescription());
         existingZone.setCapacity(request.getCapacity());
 
         Zone updatedZone = zoneRepository.save(existingZone);
-        long count = creatureRepository.countByZone(updatedZone);
         return entityMapper.toZoneResponse(updatedZone, count);
     }
+
 
     public void deleteZone(Long id) {
         Zone zone = zoneRepository.findById(id)

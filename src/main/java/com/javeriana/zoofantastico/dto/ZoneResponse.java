@@ -18,3 +18,4 @@ public class ZoneResponse {
     private int capacity;
     private long creatureCount;
 }
+
