@@ -70,6 +70,7 @@ class CreatureServiceTest {
         assertNotNull(response);
         assertEquals("Smaug", response.getName());
         assertEquals(1L, response.getZoneId());
+        assertEquals("Cueva del Dragón", response.getZoneName());
     }
 
     @Test
@@ -101,3 +102,4 @@ class CreatureServiceTest {
         verify(creatureRepository, times(1)).delete(creature);
     }
 }
+

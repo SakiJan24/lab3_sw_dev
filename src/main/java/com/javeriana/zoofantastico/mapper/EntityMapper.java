@@ -23,6 +23,7 @@ public class EntityMapper {
                 .dangerLevel(creature.getDangerLevel())
                 .healthStatus(creature.getHealthStatus())
                 .zoneId(creature.getZone() != null ? creature.getZone().getId() : null)
+                .zoneName(creature.getZone() != null ? creature.getZone().getName() : null)
                 .build();
     }
 
