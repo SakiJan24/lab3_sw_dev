@@ -1,0 +1,265 @@
+:root {
+  --color-bg-main: #071712;
+  --color-bg-card: rgba(18, 43, 35, 0.85);
+  --color-bg-card-hover: rgba(25, 59, 48, 0.95);
+  --color-emerald-dark: #071a14;
+  --color-emerald-mid: #0d3b2e;
+  --color-emerald-accent: #195e4b;
+  --color-gold: #c9a13b;
+  --color-gold-bright: #ebd180;
+  --color-gold-dark: #8c6a1d;
+  --color-gold-glow: rgba(201, 161, 59, 0.25);
+  --color-leather: #3b2a1a;
+  --color-leather-dark: #24180e;
+  --color-parchment-text: #f4efe6;
+  --color-text-muted: #b8ac97;
+  --color-danger: #c0392b;
+  --color-warning: #d35400;
+  --color-success: #27ae60;
+  --color-info: #2980b9;
+
+  --font-heading: 'Cinzel', 'Cinzel Decorative', Georgia, serif;
+  --font-body: 'Faustina', Garamond, Georgia, serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg-main);
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(13, 59, 46, 0.6) 0%, transparent 75%),
+    radial-gradient(circle at 100% 100%, rgba(59, 42, 26, 0.4) 0%, transparent 60%),
+    linear-gradient(to bottom, #05120e, #071712);
+  background-attachment: fixed;
+  color: var(--color-parchment-text);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-gold-bright);
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+a {
+  color: var(--color-gold);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-gold-bright);
+  text-shadow: 0 0 8px var(--color-gold-glow);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #05120e;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-emerald-mid);
+  border: 1px solid var(--color-gold);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-dark);
+}
+
+/* Vintage Magic Card Container */
+.magic-card {
+  background: var(--color-bg-card);
+  border: 1px solid rgba(201, 161, 59, 0.35);
+  border-radius: 8px;
+  padding: 1.5rem;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(201, 161, 59, 0.05);
+  backdrop-filter: blur(8px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.magic-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-gold);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7), 0 0 20px var(--color-gold-glow);
+}
+
+/* Vintage Corner Accent */
+.magic-card::before,
+.magic-card::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--color-gold);
+  pointer-events: none;
+  opacity: 0.6;
+}
+.magic-card::before {
+  top: 4px;
+  left: 4px;
+  border-right: none;
+  border-bottom: none;
+}
+.magic-card::after {
+  bottom: 4px;
+  right: 4px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Vintage Buttons */
+.btn-magical {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 4px;
+  border: 1px solid var(--color-gold);
+  background: linear-gradient(135deg, var(--color-leather) 0%, var(--color-leather-dark) 100%);
+  color: var(--color-gold-bright);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.btn-magical:hover {
+  background: linear-gradient(135deg, #4d3824 0%, #2e1e12 100%);
+  border-color: var(--color-gold-bright);
+  box-shadow: 0 0 15px var(--color-gold-glow), 0 4px 15px rgba(0, 0, 0, 0.6);
+  transform: translateY(-1px);
+}
+
+.btn-magical-primary {
+  background: linear-gradient(135deg, var(--color-emerald-mid) 0%, var(--color-emerald-dark) 100%);
+  border-color: var(--color-gold);
+}
+
+.btn-magical-primary:hover {
+  background: linear-gradient(135deg, var(--color-emerald-accent) 0%, var(--color-emerald-mid) 100%);
+  border-color: var(--color-gold-bright);
+}
+
+.btn-magical-danger {
+  background: linear-gradient(135deg, #5a1914 0%, #300c09 100%);
+  border-color: #e74c3c;
+  color: #fadbd8;
+}
+
+.btn-magical-danger:hover {
+  background: linear-gradient(135deg, #78281f 0%, #4a120e 100%);
+  border-color: #f1948a;
+  box-shadow: 0 0 15px rgba(231, 76, 60, 0.3);
+}
+
+/* Badges */
+.badge-status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-block;
+  border: 1px solid currentColor;
+}
+
+.badge-healthy {
+  background: rgba(39, 174, 96, 0.15);
+  color: #2ecc71;
+  border-color: #27ae60;
+}
+
+.badge-stable {
+  background: rgba(41, 128, 185, 0.15);
+  color: #3498db;
+  border-color: #2980b9;
+}
+
+.badge-recovering {
+  background: rgba(241, 196, 15, 0.15);
+  color: #f39c12;
+  border-color: #f1c40f;
+}
+
+.badge-critical {
+  background: rgba(192, 57, 43, 0.2);
+  color: #e74c3c;
+  border-color: #c0392b;
+  animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+  0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(231, 76, 60, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-heading);
+  color: var(--color-gold-bright);
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(7, 26, 20, 0.9);
+  border: 1px solid rgba(201, 161, 59, 0.4);
+  border-radius: 4px;
+  color: var(--color-parchment-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  box-shadow: 0 0 10px var(--color-gold-glow);
+}
+
+.form-select option {
+  background: #071712;
+  color: #f4efe6;
+}
+
+/* Layout container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Vintage Header Divider */
+.golden-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  margin: 1.5rem 0;
+  opacity: 0.6;
+}
+

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="leather" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5a4029"/>
+      <stop offset="100%" stop-color="#2a1c10"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ebd180"/>
+      <stop offset="50%" stop-color="#c9a13b"/>
+      <stop offset="100%" stop-color="#8c6a1d"/>
+    </linearGradient>
+    <radialGradient id="magic-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#dfb74d" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#dfb74d" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Background magic aura -->
+  <circle cx="32" cy="34" r="26" fill="url(#magic-glow)"/>
+  <!-- Handle -->
+  <path d="M25 18 C 25 10, 39 10, 39 18" fill="none" stroke="url(#gold)" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Briefcase Body -->
+  <rect x="8" y="18" width="48" height="34" rx="4" fill="url(#leather)" stroke="url(#gold)" stroke-width="2"/>
+  <!-- Leather corner patches -->
+  <path d="M8 24 L14 18 L8 18 Z" fill="url(#gold)"/>
+  <path d="M56 24 L50 18 L56 18 Z" fill="url(#gold)"/>
+  <path d="M8 46 L14 52 L8 52 Z" fill="url(#gold)"/>
+  <path d="M56 46 L50 52 L56 52 Z" fill="url(#gold)"/>
+  <!-- Center seam / closure bar -->
+  <line x1="8" y1="34" x2="56" y2="34" stroke="url(#gold)" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <!-- Brass Latches -->
+  <rect x="18" y="30" width="6" height="8" rx="1.5" fill="url(#gold)"/>
+  <rect x="40" y="30" width="6" height="8" rx="1.5" fill="url(#gold)"/>
+  <!-- Keyholes -->
+  <circle cx="21" cy="33" r="1" fill="#1a110a"/>
+  <circle cx="43" cy="33" r="1" fill="#1a110a"/>
+  <!-- Magical Sparkle -->
+  <path d="M48 12 L50 16 L54 18 L50 20 L48 24 L46 20 L42 18 L46 16 Z" fill="#ebd180"/>
+</svg>
+
