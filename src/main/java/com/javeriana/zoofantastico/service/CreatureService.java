@@ -43,12 +43,10 @@ public class CreatureService {
         Creature creature = entityMapper.toCreatureEntity(request);
         validateCreatureData(creature);
 
-        if (request.getZoneId() != null) {
-            Zone zone = zoneRepository.findById(request.getZoneId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Zone", "id", request.getZoneId()));
-            validateZoneCapacityForNewCreature(zone);
-            creature.setZone(zone);
-        }
+        Zone zone = zoneRepository.findById(request.getZoneId())
+                .orElseThrow(() -> new ResourceNotFoundException("Zone", "id", request.getZoneId()));
+        validateZoneCapacityForNewCreature(zone);
+        creature.setZone(zone);
 
         Creature savedCreature = creatureRepository.save(creature);
         return entityMapper.toCreatureResponse(savedCreature);
@@ -67,18 +65,14 @@ public class CreatureService {
         existingCreature.setDangerLevel(request.getDangerLevel());
         existingCreature.setHealthStatus(request.getHealthStatus());
 
-        if (request.getZoneId() != null) {
-            Zone newZone = zoneRepository.findById(request.getZoneId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Zone", "id", request.getZoneId()));
+        Zone newZone = zoneRepository.findById(request.getZoneId())
+                .orElseThrow(() -> new ResourceNotFoundException("Zone", "id", request.getZoneId()));
 
-            Zone currentZone = existingCreature.getZone();
-            if (currentZone == null || !currentZone.getId().equals(newZone.getId())) {
-                validateZoneCapacityForNewCreature(newZone);
-            }
-            existingCreature.setZone(newZone);
-        } else {
-            existingCreature.setZone(null);
+        Zone currentZone = existingCreature.getZone();
+        if (currentZone == null || !currentZone.getId().equals(newZone.getId())) {
+            validateZoneCapacityForNewCreature(newZone);
         }
+        existingCreature.setZone(newZone);
 
         Creature savedCreature = creatureRepository.save(existingCreature);
         return entityMapper.toCreatureResponse(savedCreature);
