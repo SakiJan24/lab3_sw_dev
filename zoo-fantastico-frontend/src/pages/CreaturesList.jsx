@@ -109,7 +109,6 @@ export const CreaturesList = () => {
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem' }}>
           {filteredCreatures.map(creature => {
-            const zone = zones.find(z => z.id === creature.zoneId);
             const isCritical = creature.healthStatus?.toLowerCase() === 'critical';
 
             return (
@@ -163,7 +162,7 @@ export const CreaturesList = () => {
                   <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0.3rem', borderTop: '1px dashed rgba(201, 161, 59, 0.2)' }}>
                     <span style={{ color: '#b8ac97' }}>Hábitat / Zona:</span>
                     <span style={{ color: '#c9a13b', fontWeight: 600 }}>
-                      {zone ? zone.name : 'Sin Zona Asignada'}
+                      {creature.zoneName || 'Sin Zona Asignada'}
                     </span>
                   </div>
                 </div>

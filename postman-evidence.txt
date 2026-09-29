@@ -1,0 +1,84 @@
+EVIDENCIA CRUD DE ZONAS (curl contra backend en Docker, http://localhost:8090/api)
+Nota: en esta maquina el puerto 8080 estaba ocupado por otro proyecto (CVAT),
+por eso la prueba se hizo en el puerto 8090; en un entorno limpio corre en 8080/api
+tal como pide el enunciado. El contrato (rutas, metodos, codigos, JSON) es identico.
+========================================================================
+
+=== 1. CREAR ZONA ===
+POST http://localhost:8090/api/zones
+Content-Type: application/json
+Body:
+{"name":"Zona Postman Demo","description":"Zona creada para evidencia de CRUD","capacity":3}
+
+Respuesta:
+HTTP/1.1 201 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Sun, 27 Sep 2026 04:48:53 GMT
+
+{"id":4,"name":"Zona Postman Demo","description":"Zona creada para evidencia de CRUD","capacity":3,"creatureCount":0}
+
+------------------------------------------------------------------------
+=== 2. LISTAR ZONAS ===
+GET http://localhost:8090/api/zones
+
+Respuesta:
+HTTP/1.1 200 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Sun, 27 Sep 2026 04:48:57 GMT
+
+[{"id":1,"name":"Zona N1","description":"Zona de prueba 1 para evidencia N+1","capacity":5,"creatureCount":1},{"id":2,"name":"Zona N2","description":"Zona de prueba 2 para evidencia N+1","capacity":5,"creatureCount":1},{"id":3,"name":"Zona N3","description":"Zona de prueba 3 para evidencia N+1","capacity":5,"creatureCount":1},{"id":4,"name":"Zona Postman Demo","description":"Zona creada para evidencia de CRUD","capacity":3,"creatureCount":0}]
+
+------------------------------------------------------------------------
+=== 3. ACTUALIZAR ZONA (id=4) ===
+PUT http://localhost:8090/api/zones/4
+Content-Type: application/json
+Body:
+{"name":"Zona Postman Demo Actualizada","description":"Descripcion actualizada via PUT","capacity":6}
+
+Respuesta:
+HTTP/1.1 200 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Sun, 27 Sep 2026 04:49:03 GMT
+
+{"id":4,"name":"Zona Postman Demo Actualizada","description":"Descripcion actualizada via PUT","capacity":6,"creatureCount":0}
+
+------------------------------------------------------------------------
+=== 4. ELIMINAR ZONA CON CRIATURAS (id=1, debe fallar 409) ===
+DELETE http://localhost:8090/api/zones/1
+
+Respuesta:
+HTTP/1.1 409 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Sun, 27 Sep 2026 04:49:07 GMT
+
+{"status":409,"error":"Conflict","message":"No se puede eliminar la zona 'Zona N1' porque tiene 1 criatura(s) asociada(s)","timestamp":"2026-09-27T04:49:07.540369034","details":null}
+
+------------------------------------------------------------------------
+=== 5. ELIMINAR ZONA VACIA (id=4, debe funcionar 204) ===
+DELETE http://localhost:8090/api/zones/4
+
+Respuesta:
+HTTP/1.1 204 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Date: Sun, 27 Sep 2026 04:49:12 GMT
+
+
+
