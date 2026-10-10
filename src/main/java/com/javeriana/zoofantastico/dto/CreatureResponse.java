@@ -19,5 +19,6 @@ public class CreatureResponse {
     private int dangerLevel;
     private String healthStatus;
     private Long zoneId;
+    private String zoneName;
 }
 

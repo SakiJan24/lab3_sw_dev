@@ -51,6 +51,12 @@ public class ZoneController {
         return ResponseEntity.ok(updatedZone);
     }
 
+    @DeleteMapping
+    public ResponseEntity<Void> deleteAllZones() {
+        zoneService.deleteAllZones();
+        return ResponseEntity.noContent().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteZone(@PathVariable Long id) {
         zoneService.deleteZone(id);

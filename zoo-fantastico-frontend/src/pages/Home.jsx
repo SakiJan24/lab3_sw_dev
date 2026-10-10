@@ -205,8 +205,6 @@ export const Home = () => {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
           {creatures.slice(0, 3).map(creature => {
-            const zone = zones.find(z => z.id === creature.zoneId);
-
             return (
               <div key={creature.id} className="magic-card">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
@@ -242,7 +240,7 @@ export const Home = () => {
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <span style={{ color: '#b8ac97' }}>Hábitat Asignado:</span>
                     <span style={{ color: '#c9a13b', fontWeight: 600 }}>
-                      {zone ? zone.name : 'Sin Asignar'}
+                      {creature.zoneName || 'Sin Asignar'}
                     </span>
                   </div>
                 </div>

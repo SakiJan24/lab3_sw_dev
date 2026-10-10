@@ -1,0 +1,76 @@
+EVIDENCIA "ANTES" - PROBLEMA N+1 EN GET /api/creatures
+========================================================
+
+Contexto:
+- CreatureRepository.findAll() SIN @EntityGraph(attributePaths = {"zone"})
+- CreatureRepository.findByIdWithZone() SIN "LEFT JOIN FETCH c.zone"
+- CreatureResponse SÍ incluye "zoneName" (String), poblado en EntityMapper
+  con creature.getZone().getName() — este campo es parte definitiva del
+  código entregado, no una prueba temporal.
+- Datos de prueba: 3 zonas (Zona N1, Zona N2, Zona N3), 1 criatura en cada
+  zona (Criatura1 -> Zona N1, Criatura2 -> Zona N2, Criatura3 -> Zona N3).
+
+Por qué el N+1 es real con este código:
+El mapper accede a creature.getZone().getName() (no solo al id). Un proxy
+lazy de Hibernate conoce su propio id sin consultar la base de datos, pero
+CUALQUIER otro campo (como "name") obliga a inicializarlo con una consulta
+SELECT adicional. Por eso, con la asociación @ManyToOne(fetch = LAZY) de
+Creature.zone y sin @EntityGraph/JOIN FETCH, cada zona distinta referenciada
+dispara una consulta extra.
+
+Petición ejecutada:
+  GET http://localhost:8090/api/creatures
+
+Respuesta (200 OK):
+[{"id":1,"name":"Criatura1","species":"Especie1","size":1.5,"dangerLevel":1,"healthStatus":"healthy","zoneId":1,"zoneName":"Zona N1"},
+ {"id":2,"name":"Criatura2","species":"Especie2","size":1.5,"dangerLevel":2,"healthStatus":"healthy","zoneId":2,"zoneName":"Zona N2"},
+ {"id":3,"name":"Criatura3","species":"Especie3","size":1.5,"dangerLevel":3,"healthStatus":"healthy","zoneId":3,"zoneName":"Zona N3"}]
+
+Consultas SQL generadas (spring.jpa.show-sql=true), en orden:
+
+Hibernate:
+    select
+        c1_0.id,
+        c1_0.danger_level,
+        c1_0.health_status,
+        c1_0.name,
+        c1_0.size,
+        c1_0.species,
+        c1_0.zone_id
+    from
+        creatures c1_0
+Hibernate:
+    select
+        z1_0.id,
+        z1_0.capacity,
+        z1_0.description,
+        z1_0.name
+    from
+        zones z1_0
+    where
+        z1_0.id=?
+Hibernate:
+    select
+        z1_0.id,
+        z1_0.capacity,
+        z1_0.description,
+        z1_0.name
+    from
+        zones z1_0
+    where
+        z1_0.id=?
+Hibernate:
+    select
+        z1_0.id,
+        z1_0.capacity,
+        z1_0.description,
+        z1_0.name
+    from
+        zones z1_0
+    where
+        z1_0.id=?
+
+Conteo total: 1 consulta inicial (creatures) + 3 consultas adicionales
+(una por cada zona distinta referenciada) = 4 consultas para 3 registros.
+Este es el patrón N+1: con M criaturas repartidas en N zonas distintas,
+el costo crece linealmente con N en vez de mantenerse constante.

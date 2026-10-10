@@ -17,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -70,6 +71,7 @@ class CreatureServiceTest {
         assertNotNull(response);
         assertEquals("Smaug", response.getName());
         assertEquals(1L, response.getZoneId());
+        assertEquals("Cueva del Dragón", response.getZoneName());
     }
 
     @Test
@@ -100,4 +102,27 @@ class CreatureServiceTest {
 
         verify(creatureRepository, times(1)).delete(creature);
     }
+
+    @Test
+    void deleteAllCreatures_HasCritical_ThrowsBusinessRuleException() {
+        Creature critical = new Creature();
+        critical.setId(11L);
+        critical.setName("Caos");
+        critical.setHealthStatus("critical");
+        when(creatureRepository.findAll()).thenReturn(List.of(creature, critical));
+
+        BusinessRuleException ex = assertThrows(BusinessRuleException.class, () -> creatureService.deleteAllCreatures());
+        assertTrue(ex.getMessage().contains("critical"));
+        verify(creatureRepository, never()).deleteAll(any());
+    }
+
+    @Test
+    void deleteAllCreatures_AllHealthy_Success() {
+        when(creatureRepository.findAll()).thenReturn(List.of(creature));
+
+        creatureService.deleteAllCreatures();
+
+        verify(creatureRepository, times(1)).deleteAll(List.of(creature));
+    }
 }
+

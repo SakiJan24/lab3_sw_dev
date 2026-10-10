@@ -1,0 +1,56 @@
+EVIDENCIA "DESPUÉS" - FIX DEL N+1 EN GET /api/creatures
+========================================================
+
+Contexto:
+- CreatureRepository.findAll() CON @EntityGraph(attributePaths = {"zone"})
+- CreatureRepository.findByIdWithZone() CON "LEFT JOIN FETCH c.zone"
+- CreatureResponse incluye "zoneName" (String), poblado en EntityMapper
+  con creature.getZone().getName() — código definitivo, igual al de
+  antes.txt (no se removió nada para esta captura).
+- Mismos datos de prueba que en antes.txt: 3 zonas, 1 criatura en cada una.
+
+Petición ejecutada:
+  GET http://localhost:8090/api/creatures
+
+Respuesta (200 OK) - idéntica a la del "antes", mismos datos:
+[{"id":1,"name":"Criatura1","species":"Especie1","size":1.5,"dangerLevel":1,"healthStatus":"healthy","zoneId":1,"zoneName":"Zona N1"},
+ {"id":2,"name":"Criatura2","species":"Especie2","size":1.5,"dangerLevel":2,"healthStatus":"healthy","zoneId":2,"zoneName":"Zona N2"},
+ {"id":3,"name":"Criatura3","species":"Especie3","size":1.5,"dangerLevel":3,"healthStatus":"healthy","zoneId":3,"zoneName":"Zona N3"}]
+
+Consultas SQL generadas (spring.jpa.show-sql=true):
+
+Hibernate:
+    select
+        c1_0.id,
+        c1_0.danger_level,
+        c1_0.health_status,
+        c1_0.name,
+        c1_0.size,
+        c1_0.species,
+        z1_0.id,
+        z1_0.capacity,
+        z1_0.description,
+        z1_0.name
+    from
+        creatures c1_0
+    left join
+        zones z1_0
+            on z1_0.id=c1_0.zone_id
+
+Conteo total: 1 sola consulta, con LEFT JOIN a "zones", sin importar
+cuántas zonas distintas estén referenciadas. @EntityGraph(attributePaths
+= {"zone"}) le indica a Spring Data JPA que traiga la asociación "zone"
+en la misma consulta (JOIN), en vez de dejarla LAZY y disparar una
+consulta adicional cada vez que se accede a un campo no-id de la zona
+(en este caso, "zoneName" en la respuesta).
+
+Comparación antes vs. después (3 criaturas en 3 zonas distintas):
+  Antes:   4 consultas (1 + 3)
+  Después: 1 consulta
+
+El ahorro escala con el número de zonas distintas involucradas: con N
+zonas distintas, antes eran 1+N consultas y después siempre 1.
+
+Este es el estado final del código (CreatureResponse.zoneName, el
+@EntityGraph y el JOIN FETCH conviven de forma permanente; no hay nada
+que revertir después de esta captura).

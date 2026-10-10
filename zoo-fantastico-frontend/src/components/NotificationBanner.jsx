@@ -2,6 +2,14 @@ import React from 'react';
 import { useZoo } from '../context/ZooContext';
 import { AlertTriangle, CheckCircle, Info } from 'lucide-react';
 
+const ERROR_TITLES = {
+  400: 'Datos Inválidos',
+  404: 'Registro No Localizado',
+  409: 'Regla Mágica Vulnerada'
+};
+
+const getErrorTitle = (status) => ERROR_TITLES[status] || 'Error de la Operación Mágica';
+
 export const NotificationBanner = () => {
   const { notification } = useZoo();
 
@@ -59,7 +67,7 @@ export const NotificationBanner = () => {
           fontFamily: 'var(--font-heading)',
           letterSpacing: '0.03em'
         }}>
-          {notification.type === 'error' ? 'Regla Mágica / Error 409' : 'Registro de Fauna'}
+          {notification.type === 'error' ? getErrorTitle(notification.status) : 'Registro de Fauna'}
         </h4>
         <p style={{ margin: '0.2rem 0 0 0', fontSize: '0.9rem', lineHeight: '1.4' }}>
           {notification.message}

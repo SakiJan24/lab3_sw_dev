@@ -43,12 +43,10 @@ public class CreatureService {
         Creature creature = entityMapper.toCreatureEntity(request);
         validateCreatureData(creature);
 
-        if (request.getZoneId() != null) {
-            Zone zone = zoneRepository.findById(request.getZoneId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Zone", "id", request.getZoneId()));
-            validateZoneCapacityForNewCreature(zone);
-            creature.setZone(zone);
-        }
+        Zone zone = zoneRepository.findById(request.getZoneId())
+                .orElseThrow(() -> new ResourceNotFoundException("Zone", "id", request.getZoneId()));
+        validateZoneCapacityForNewCreature(zone);
+        creature.setZone(zone);
 
         Creature savedCreature = creatureRepository.save(creature);
         return entityMapper.toCreatureResponse(savedCreature);
@@ -67,18 +65,14 @@ public class CreatureService {
         existingCreature.setDangerLevel(request.getDangerLevel());
         existingCreature.setHealthStatus(request.getHealthStatus());
 
-        if (request.getZoneId() != null) {
-            Zone newZone = zoneRepository.findById(request.getZoneId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Zone", "id", request.getZoneId()));
+        Zone newZone = zoneRepository.findById(request.getZoneId())
+                .orElseThrow(() -> new ResourceNotFoundException("Zone", "id", request.getZoneId()));
 
-            Zone currentZone = existingCreature.getZone();
-            if (currentZone == null || !currentZone.getId().equals(newZone.getId())) {
-                validateZoneCapacityForNewCreature(newZone);
-            }
-            existingCreature.setZone(newZone);
-        } else {
-            existingCreature.setZone(null);
+        Zone currentZone = existingCreature.getZone();
+        if (currentZone == null || !currentZone.getId().equals(newZone.getId())) {
+            validateZoneCapacityForNewCreature(newZone);
         }
+        existingCreature.setZone(newZone);
 
         Creature savedCreature = creatureRepository.save(existingCreature);
         return entityMapper.toCreatureResponse(savedCreature);
@@ -92,6 +86,21 @@ public class CreatureService {
             throw new BusinessRuleException("No se puede eliminar una criatura con estado de salud 'critical'");
         }
         creatureRepository.delete(creature);
+    }
+
+    public void deleteAllCreatures() {
+        List<Creature> creatures = creatureRepository.findAll();
+        List<Creature> criticalCreatures = creatures.stream()
+                .filter(c -> "critical".equalsIgnoreCase(c.getHealthStatus()))
+                .collect(Collectors.toList());
+
+        if (!criticalCreatures.isEmpty()) {
+            String names = criticalCreatures.stream()
+                    .map(Creature::getName)
+                    .collect(Collectors.joining(", "));
+            throw new BusinessRuleException("No se pueden eliminar criaturas con estado de salud 'critical': " + names);
+        }
+        creatureRepository.deleteAll(creatures);
     }
 
     private void validateCreatureData(Creature creature) {

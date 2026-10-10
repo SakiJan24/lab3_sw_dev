@@ -53,6 +53,7 @@ class ZooIntegrationTests {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value("Articuno"))
                 .andExpect(jsonPath("$.zoneId").value(zoneId))
+                .andExpect(jsonPath("$.zoneName").value("Montaña de Hielo"))
                 .andReturn();
 
         String creatureResponseBody = creatureResult.getResponse().getContentAsString();
