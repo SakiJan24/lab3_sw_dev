@@ -102,4 +102,25 @@ class ZoneServiceTest {
 
         verify(zoneRepository, times(1)).delete(sampleZone);
     }
+
+    @Test
+    void deleteAllZones_WithCreatures_ThrowsBusinessRuleException() {
+        when(zoneRepository.findAll()).thenReturn(List.of(sampleZone));
+        when(creatureRepository.countByZone(sampleZone)).thenReturn(1L);
+
+        BusinessRuleException ex = assertThrows(BusinessRuleException.class, () -> zoneService.deleteAllZones());
+        assertTrue(ex.getMessage().contains("criatura(s) asociada(s)"));
+        verify(zoneRepository, never()).deleteAll(any());
+    }
+
+    @Test
+    void deleteAllZones_EmptyZones_Success() {
+        when(zoneRepository.findAll()).thenReturn(List.of(sampleZone));
+        when(creatureRepository.countByZone(sampleZone)).thenReturn(0L);
+
+        zoneService.deleteAllZones();
+
+        verify(creatureRepository, times(1)).countByZone(sampleZone);
+        verify(zoneRepository, times(1)).deleteAll(List.of(sampleZone));
+    }
 }

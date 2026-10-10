@@ -51,6 +51,12 @@ public class CreatureController {
         return ResponseEntity.ok(updatedCreature);
     }
 
+    @DeleteMapping
+    public ResponseEntity<Void> deleteAllCreatures() {
+        creatureService.deleteAllCreatures();
+        return ResponseEntity.noContent().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCreature(@PathVariable Long id) {
         creatureService.deleteCreature(id);
