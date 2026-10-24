@@ -88,6 +88,21 @@ public class CreatureService {
         creatureRepository.delete(creature);
     }
 
+    public void deleteAllCreatures() {
+        List<Creature> creatures = creatureRepository.findAll();
+        List<Creature> criticalCreatures = creatures.stream()
+                .filter(c -> "critical".equalsIgnoreCase(c.getHealthStatus()))
+                .collect(Collectors.toList());
+
+        if (!criticalCreatures.isEmpty()) {
+            String names = criticalCreatures.stream()
+                    .map(Creature::getName)
+                    .collect(Collectors.joining(", "));
+            throw new BusinessRuleException("No se pueden eliminar criaturas con estado de salud 'critical': " + names);
+        }
+        creatureRepository.deleteAll(creatures);
+    }
+
     private void validateCreatureData(Creature creature) {
         if (creature.getSize() < 0) {
             throw new BusinessRuleException("El tamaño (size) de la criatura no puede ser negativo");

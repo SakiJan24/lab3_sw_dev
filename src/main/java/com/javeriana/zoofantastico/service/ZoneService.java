@@ -80,4 +80,17 @@ public class ZoneService {
         }
         zoneRepository.delete(zone);
     }
+
+    public void deleteAllZones() {
+        List<Zone> zones = zoneRepository.findAll();
+        for (Zone zone : zones) {
+            long count = creatureRepository.countByZone(zone);
+            if (count > 0) {
+                throw new BusinessRuleException(
+                        String.format("No se puede eliminar la zona '%s' porque tiene %d criatura(s) asociada(s)", zone.getName(), count)
+                );
+            }
+        }
+        zoneRepository.deleteAll(zones);
+    }
 }
