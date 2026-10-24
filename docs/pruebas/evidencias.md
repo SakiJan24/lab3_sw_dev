@@ -48,4 +48,4 @@ Los dashboards HTML y los `.jtl` de JMeter no se versionan (están en `.gitignor
 | 17b | Corrida **exploratoria** (fuera de la tabla oficial): 100 usuarios contra zona de **capacidad 50** (dashboard `report_100_cap50`): 5 000 muestras, 4 944 × 409 (98,88 %), tabla *Errors* con la fila `409`. Cruce con BD: 56 criaturas en una zona de capacidad 50 → confirma H2 | `17b_jmeter_explor_capacidad_409.png` | Tomada |
 | 18 | Tabla comparativa final y análisis en `docs/pruebas/jmeter-resultados.md` (vista previa de Markdown): usuarios, hilos activos, muestras, promedio, mediana, p90/p95/p99, máximo, % de error y throughput de las corridas oficiales 10/50/100 | `18_tabla_comparativa_jmeter.png` | Pendiente |
 
-> Iteración 1 (`rampup=10`, `loops=10`) descartada por falta de concurrencia real (ver `hallazgos.md`, H3).
+> Iteración 1 (`rampup=10`, `loops=10`) descartada por falta de concurrencia real (ver `jmeter-resultados.md`, *Problemas encontrados durante la prueba*).

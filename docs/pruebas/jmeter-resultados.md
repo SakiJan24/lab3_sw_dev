@@ -31,9 +31,32 @@ Fuente: `statistics.json` del dashboard de cada corrida y columna `allThreads` d
 5. **Posible cuello de botella (hipótesis, no medida).** Cada creación hace `SELECT` de la zona, `COUNT` de sus criaturas e `INSERT`, dentro de una transacción. El pool de conexiones por defecto de Spring Boot (HikariCP, 10 conexiones) frente a 50–100 hilos concurrentes es un candidato natural a explicar la cola; confirmarlo requeriría métricas del pool o de MySQL, que no se recogieron en esta práctica.
 6. **Para un uso interactivo**, con hasta 10 usuarios simultáneos la respuesta es inmediata (p95 = 30 ms); con 100 usuarios simultáneos creando criaturas sin pausa, el p95 de ~0,3 s sigue siendo aceptable, pero el sistema ya está al límite de su capacidad en este equipo.
 
-## Iteración 1 descartada (`rampup=10`, `loops=10`)
+## Problemas encontrados durante la prueba
 
-La primera tanda no generaba concurrencia real (máximo 1, 2 y 3 hilos activos para 10, 50 y 100 usuarios), así que medía solo la tasa de llegada. Se explica en `hallazgos.md` (H3).
+### Iteración 1 descartada: el diseño inicial no generaba concurrencia real (`rampup=10`)
+
+No es un hallazgo del código de la aplicación sino del diseño de la prueba de carga.
+
+- **Dónde:** `performance/jmeter/zoo-creatures.jmx`, parámetros de la primera iteración: `-Jrampup=10 -Jloops=10` con `-Jusers` = 10, 50 y 100.
+- **Qué pasaba:** con un ramp-up de 10 s JMeter arranca un hilo nuevo cada `10 s / users` (cada 100 ms con 100 usuarios). Cada hilo hacía sus 10 peticiones en ~200 ms y terminaba antes de que arrancaran los siguientes, así que los hilos casi nunca se solapaban. Calculado desde la columna `allThreads` de los `.jtl`:
+
+  | Corrida (iteración 1) | Hilos activos promedio | Hilos activos máximo |
+  |---|---|---|
+  | 10 usuarios | 1,0 | 1 |
+  | 50 usuarios | 1,2 | 2 |
+  | 100 usuarios | 2,0 | 3 |
+
+- **Síntoma:** el throughput solo reflejaba la tasa de llegada (10, 50 y 100 req/s ≈ usuarios/ramp-up) y la latencia **bajaba** al aumentar los "usuarios" (24 → 22 → 19 ms) por calentamiento de la JVM, con 0 % de error. Los resultados no medían el comportamiento bajo carga concurrente.
+- **Corrección:** se repitieron las tres corridas con `-Jrampup=1 -Jloops=50` (iguales en las tres; solo cambia `-Jusers`) y se verificó la simultaneidad tras cada corrida:
+
+  | Corrida (iteración 2) | Peticiones | Hilos activos promedio | Hilos activos máximo |
+  |---|---|---|---|
+  | 10 usuarios | 500 | 6,9 | 10 |
+  | 50 usuarios | 2 500 | 43,7 | 50 |
+  | 100 usuarios | 5 000 | 93,5 | 100 |
+
+- **Evidencia conservada:** los resultados de la iteración 1 no se borraron, pero no se versionan (los resultados de JMeter están en `.gitignore`); se regeneran con `-Jrampup=10 -Jloops=10`.
+- **Lección:** el número de hilos configurado no es la concurrencia efectiva; hay que comprobarla (columna `allThreads` del `.jtl` o gráfico *Active Threads Over Time* del dashboard) y dimensionar `rampup` y `loops` para que los hilos se solapen.
 
 ## Errores bajo carga
 
