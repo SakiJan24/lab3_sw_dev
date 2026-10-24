@@ -57,3 +57,8 @@ build/
 # OS specific
 .DS_Store
 Thumbs.db
+
+### JMeter (resultados de ejecución, se regeneran) ###
+performance/jmeter/results/
+*.jtl
+jmeter.log
