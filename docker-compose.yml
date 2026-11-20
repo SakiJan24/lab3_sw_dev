@@ -24,6 +24,7 @@ services:
       - zoo-network
 
   app:
+    image: zoo-fantastic-app:latest
     build:
       context: .
       dockerfile: Dockerfile
