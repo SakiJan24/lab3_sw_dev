@@ -1,0 +1,73 @@
+### Simulacion del ciclo de Jenkins: build -> down -> up (dos veces)
+===== Ejecucion 1 (16:03:38) =====
+$ docker compose build
+ Image zoo-fantastic-app:latest Building 
+ Image zoo-fantastic-app:latest Built 
+exit=0
+$ docker compose down
+ Container zoo-app Stopping 
+ Container zoo-app Stopped 
+ Container zoo-app Removing 
+ Container zoo-app Removed 
+ Container zoo-mysql Stopping 
+ Container zoo-mysql Stopped 
+ Container zoo-mysql Removing 
+ Container zoo-mysql Removed 
+ Network zoo-fantastico_zoo-network Removing 
+ Network zoo-fantastico_zoo-network Removed 
+$ APP_PORT=8081 docker compose up -d
+ Network zoo-fantastico_zoo-network Creating 
+ Network zoo-fantastico_zoo-network Created 
+ Container zoo-mysql Creating 
+ Container zoo-mysql Created 
+ Container zoo-app Creating 
+ Container zoo-app Created 
+ Container zoo-mysql Starting 
+ Container zoo-mysql Started 
+ Container zoo-mysql Waiting 
+ Container zoo-mysql Healthy 
+ Container zoo-app Starting 
+ Container zoo-app Started 
+app arrancada: yes
+2026-11-20T21:03:54.156Z  INFO 1 --- [zoo-fantastico] [           main] c.j.z.ZooFantasticoApplication           : Started ZooFantasticoApplication in 4.531 seconds (process running for 5.028)
+NAMES       IMAGE                      STATUS                    PORTS
+zoo-app     zoo-fantastic-app:latest   Up 7 seconds              0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp
+zoo-mysql   mysql:8.0                  Up 13 seconds (healthy)   0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp
+$ curl http://localhost:8081/api/zones
+HTTP 200
+===== Ejecucion 2 (16:03:56) =====
+$ docker compose build
+ Image zoo-fantastic-app:latest Building 
+ Image zoo-fantastic-app:latest Built 
+exit=0
+$ docker compose down
+ Container zoo-app Stopping 
+ Container zoo-app Stopped 
+ Container zoo-app Removing 
+ Container zoo-app Removed 
+ Container zoo-mysql Stopping 
+ Container zoo-mysql Stopped 
+ Container zoo-mysql Removing 
+ Container zoo-mysql Removed 
+ Network zoo-fantastico_zoo-network Removing 
+ Network zoo-fantastico_zoo-network Removed 
+$ APP_PORT=8081 docker compose up -d
+ Network zoo-fantastico_zoo-network Creating 
+ Network zoo-fantastico_zoo-network Created 
+ Container zoo-mysql Creating 
+ Container zoo-mysql Created 
+ Container zoo-app Creating 
+ Container zoo-app Created 
+ Container zoo-mysql Starting 
+ Container zoo-mysql Started 
+ Container zoo-mysql Waiting 
+ Container zoo-mysql Healthy 
+ Container zoo-app Starting 
+ Container zoo-app Started 
+app arrancada: yes
+2026-11-20T21:04:12.009Z  INFO 1 --- [zoo-fantastico] [           main] c.j.z.ZooFantasticoApplication           : Started ZooFantasticoApplication in 4.637 seconds (process running for 5.171)
+NAMES       IMAGE                      STATUS                    PORTS
+zoo-app     zoo-fantastic-app:latest   Up 7 seconds              0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp
+zoo-mysql   mysql:8.0                  Up 13 seconds (healthy)   0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp
+$ curl http://localhost:8081/api/zones
+HTTP 200

@@ -1,0 +1,76 @@
+ Image zoo-fantastic-app:latest Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 713B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 706B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/maven:3.9.6-eclipse-temurin-21-alpine
+#3 DONE 0.0s
+
+#4 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre-alpine
+#4 DONE 0.4s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 552B done
+#5 DONE 0.0s
+
+#6 [build 1/6] FROM docker.io/library/maven:3.9.6-eclipse-temurin-21-alpine@sha256:9fca6934e64eff26860889804faecb71a522d04b4ebf05574140c71f8e9bc700
+#6 resolve docker.io/library/maven:3.9.6-eclipse-temurin-21-alpine@sha256:9fca6934e64eff26860889804faecb71a522d04b4ebf05574140c71f8e9bc700 0.0s done
+#6 DONE 0.0s
+
+#7 [stage-1 1/4] FROM docker.io/library/eclipse-temurin:21-jre-alpine@sha256:5d7689f47d670aca766b9503a70bccc2d73b4eb9221ae8f714ae958313c4ce70
+#7 resolve docker.io/library/eclipse-temurin:21-jre-alpine@sha256:5d7689f47d670aca766b9503a70bccc2d73b4eb9221ae8f714ae958313c4ce70 0.0s done
+#7 DONE 0.0s
+
+#8 [internal] load build context
+#8 transferring context: 3.46kB done
+#8 DONE 0.0s
+
+#9 [build 4/6] RUN mvn dependency:go-offline -B
+#9 CACHED
+
+#10 [stage-1 3/4] RUN addgroup -S spring && adduser -S spring -G spring
+#10 CACHED
+
+#11 [build 3/6] COPY pom.xml .
+#11 CACHED
+
+#12 [build 5/6] COPY src ./src
+#12 CACHED
+
+#13 [stage-1 2/4] WORKDIR /app
+#13 CACHED
+
+#14 [build 6/6] RUN mvn clean package -DskipTests
+#14 CACHED
+
+#15 [build 2/6] WORKDIR /app
+#15 CACHED
+
+#16 [stage-1 4/4] COPY --from=build /app/target/*.jar app.jar
+#16 CACHED
+
+#17 exporting to image
+#17 exporting layers done
+#17 exporting manifest sha256:a3a8af833b1316bc696e11d02039000c913259a0b945bdbca6a231b840d49ad0 done
+#17 exporting config sha256:e2981dc59437942f284ddc75f28164d976a7eafdc929d35edbb6f2eb34739af2 done
+#17 exporting attestation manifest sha256:8775dd976b01deb6005aef5e81ce7898472962a6019a80168055611181147716 0.0s done
+#17 exporting manifest list sha256:475d5d0c755a52ae982932a20755e386cf60a536d075cd156f5c9df15e8fde8c
+#17 exporting manifest list sha256:475d5d0c755a52ae982932a20755e386cf60a536d075cd156f5c9df15e8fde8c 0.0s done
+#17 naming to docker.io/library/zoo-fantastic-app:latest done
+#17 unpacking to docker.io/library/zoo-fantastic-app:latest 0.0s done
+#17 DONE 0.1s
+
+#18 resolving provenance for metadata file
+#18 DONE 0.0s
+ Image zoo-fantastic-app:latest Built 
+ Container zoo-mysql Running 
+ Container zoo-app Recreate 
+ Container zoo-app Recreated 
+ Container zoo-mysql Waiting 
+ Container zoo-mysql Healthy 
+ Container zoo-app Starting 
+ Container zoo-app Started 

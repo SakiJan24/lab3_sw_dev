@@ -1,0 +1,32 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.4)
+
+2026-11-20T20:56:20.212Z  INFO 1 --- [zoo-fantastico] [           main] c.j.z.ZooFantasticoApplication           : Starting ZooFantasticoApplication v0.0.1-SNAPSHOT using Java 21.0.13.1 with PID 1 (/app/app.jar started by spring in /app)
+2026-11-20T20:56:20.214Z  INFO 1 --- [zoo-fantastico] [           main] c.j.z.ZooFantasticoApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-11-20T20:56:21.083Z  INFO 1 --- [zoo-fantastico] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-20T20:56:21.154Z  INFO 1 --- [zoo-fantastico] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 59 ms. Found 2 JPA repository interfaces.
+2026-11-20T20:56:21.674Z  INFO 1 --- [zoo-fantastico] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-11-20T20:56:21.688Z  INFO 1 --- [zoo-fantastico] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-20T20:56:21.688Z  INFO 1 --- [zoo-fantastico] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-11-20T20:56:21.721Z  INFO 1 --- [zoo-fantastico] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-11-20T20:56:21.723Z  INFO 1 --- [zoo-fantastico] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1410 ms
+2026-11-20T20:56:21.919Z  INFO 1 --- [zoo-fantastico] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-11-20T20:56:21.982Z  INFO 1 --- [zoo-fantastico] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-11-20T20:56:22.015Z  INFO 1 --- [zoo-fantastico] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-11-20T20:56:22.261Z  INFO 1 --- [zoo-fantastico] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-11-20T20:56:22.293Z  INFO 1 --- [zoo-fantastico] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-11-20T20:56:22.462Z  INFO 1 --- [zoo-fantastico] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@852ef8d
+2026-11-20T20:56:22.465Z  INFO 1 --- [zoo-fantastico] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-11-20T20:56:22.506Z  WARN 1 --- [zoo-fantastico] [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-11-20T20:56:23.221Z  INFO 1 --- [zoo-fantastico] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-11-20T20:56:23.276Z  INFO 1 --- [zoo-fantastico] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-11-20T20:56:23.521Z  INFO 1 --- [zoo-fantastico] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-11-20T20:56:24.036Z  WARN 1 --- [zoo-fantastico] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-11-20T20:56:24.349Z  INFO 1 --- [zoo-fantastico] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-11-20T20:56:24.361Z  INFO 1 --- [zoo-fantastico] [           main] c.j.z.ZooFantasticoApplication           : Started ZooFantasticoApplication in 4.525 seconds (process running for 5.096)
