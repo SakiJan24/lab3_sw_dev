@@ -1,0 +1,34 @@
+# Control de versiones
+.git
+.gitignore
+.gitattributes
+
+# Artefactos de compilacion (la imagen compila desde cero en la etapa build)
+target
+
+# Partes del repo que no hacen parte del backend
+zoo-fantastico-frontend
+performance
+docs
+
+# Evidencias y archivos de texto sueltos
+*.txt
+HELP.md
+
+# Variables de entorno locales (no deben ir dentro de la imagen)
+.env
+.env.*
+
+# Archivos de IDE / sistema operativo
+.idea
+*.iml
+*.iws
+*.ipr
+.vscode
+.classpath
+.project
+.settings
+.factorypath
+.sts4-cache
+.DS_Store
+Thumbs.db
