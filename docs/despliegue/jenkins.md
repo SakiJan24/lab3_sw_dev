@@ -161,6 +161,55 @@ zoo-mysql     mysql:8.0                  Up 17 seconds (healthy)   0.0.0.0:3306-
 jenkins-zoo   jenkins-zoo:lts-jdk21      Up 5 minutes              0.0.0.0:8080->8080/tcp, 0.0.0.0:8090->8090/tcp
 ```
 
+### 3.4 Validación: una prueba fallida detiene el despliegue
+
+Para comprobar el punto 2 de la *Validación del Pipeline* («si alguna prueba falla, el
+pipeline se detendrá y no se ejecutará el despliegue») se creó una rama temporal
+`demo/prueba-fallida` con una prueba que falla a propósito:
+
+```java
+@Test
+void fallaIntencionalParaDemostrarElPipeline() {
+    int capacidadEsperada = 50;
+    int capacidadReal = 51;
+    assertEquals(capacidadEsperada, capacidadReal,
+            "Falla intencional: con una prueba en rojo el pipeline no debe desplegar");
+}
+```
+
+Se apuntó el job a esa rama y se ejecutó el build #3 (`evidencias/12-…build3-prueba-fallida.txt`):
+
+```
+[ERROR] PipelineFallaDemoTest.fallaIntencionalParaDemostrarElPipeline:18 Falla intencional: con una
+        prueba en rojo el pipeline no debe desplegar ==> expected: <50> but was: <51>
+[ERROR] Tests run: 72, Failures: 1, Errors: 0, Skipped: 0
+[INFO] BUILD FAILURE
+Stage "Docker Build" skipped due to earlier failure(s)
+Stage "Docker Run" skipped due to earlier failure(s)
+Stage "Smoke Test" skipped due to earlier failure(s)
+Pipeline terminado.
+Error en el pipeline. Revisar los logs.
+Finished: FAILURE
+```
+
+| Etapa | Build #3 |
+|---|---|
+| Checkout SCM, Build | SUCCESS |
+| Run Tests | **FAILED**: 71 pasaron, 1 falló (reporte JUnit en Jenkins) |
+| Docker Build, Docker Run, Smoke Test | **No se ejecutaron** (*skipped due to earlier failure*) |
+| post | `always` + `failure`: «Pipeline terminado.» / «Error en el pipeline. Revisar los logs.» |
+
+El Stage View pinta esas tres etapas en rojo con la etiqueta *failed*, pero duraron entre 60 y
+120 ms y la consola confirma que fueron omitidas: es la forma en que el plugin Stage View
+muestra las etapas saltadas.
+
+**La versión desplegada no se tocó.** El contenedor `zoo-app` tenía el mismo ID
+(`da809ecec5a7…`) y la misma fecha de creación (18:32:11, del build #2) antes y después del
+build #3, y `GET /api/zones` en el 8081 siguió respondiendo 200. Una prueba en rojo deja en
+producción la última versión buena.
+
+Al terminar, el job volvió a apuntar a `feature/jenkins-pipeline` y la rama temporal se eliminó.
+
 ## 4. Beneficios de usar contenedores en el pipeline
 
 - **Mismo artefacto en todos lados**: la imagen que construye Jenkins es la misma que se
