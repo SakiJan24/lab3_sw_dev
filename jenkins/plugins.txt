@@ -1,0 +1,9 @@
+git
+workflow-aggregator
+pipeline-stage-view
+docker-plugin
+docker-workflow
+junit
+postbuildscript
+timestamper
+ws-cleanup

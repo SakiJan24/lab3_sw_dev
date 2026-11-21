@@ -1,0 +1,34 @@
+# Jenkins para el laboratorio (separado del docker-compose.yml de la aplicación).
+#
+#   cd jenkins
+#   cp .env.example .env        # y poner una contraseña
+#   docker compose up -d --build
+#
+# Jenkins queda en http://localhost:8080
+name: jenkins-zoo
+
+services:
+  jenkins:
+    build: .
+    image: jenkins-zoo:lts-jdk21
+    container_name: jenkins-zoo
+    restart: unless-stopped
+    ports:
+      - "8080:8080"     # interfaz web de Jenkins
+      - "8090:8090"     # app desplegada por el job Freestyle (java -jar dentro de Jenkins)
+    environment:
+      JENKINS_ADMIN_USER: ${JENKINS_ADMIN_USER:-admin}
+      JENKINS_ADMIN_PASSWORD: ${JENKINS_ADMIN_PASSWORD:?Definir JENKINS_ADMIN_PASSWORD en jenkins/.env}
+    # El grupo del socket de Docker en el host (getent group docker) para que el
+    # usuario jenkins pueda usar docker sin ser root.
+    group_add:
+      - "${DOCKER_GID:-115}"
+    # host.docker.internal = el host; desde aquí se llega a MySQL (3306) y a la app (8081).
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  jenkins_home:

@@ -32,3 +32,7 @@ HELP.md
 .sts4-cache
 .DS_Store
 Thumbs.db
+
+# Archivos de CI (no hacen parte de la imagen de la app)
+Jenkinsfile
+jenkins
