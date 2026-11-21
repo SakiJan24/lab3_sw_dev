@@ -1,0 +1,907 @@
+Started by user admin
+Obtained Jenkinsfile from git https://github.com/SakiJan24/lab3_sw_dev.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/Pipeline-Docker-CRUD
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/Pipeline-Docker-CRUD/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/SakiJan24/lab3_sw_dev.git # timeout=10
+Fetching upstream changes from https://github.com/SakiJan24/lab3_sw_dev.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- https://github.com/SakiJan24/lab3_sw_dev.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/feature/jenkins-pipeline^{commit} # timeout=10
+Checking out Revision 341b7696005b25430297c6d049ab04809d37bb6b (refs/remotes/origin/feature/jenkins-pipeline)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 341b7696005b25430297c6d049ab04809d37bb6b # timeout=10
+Commit message: "ci(jenkins): agregar Jenkinsfile y contenedor de Jenkins con Java 21, Maven y Docker"
+ > git rev-list --no-walk 341b7696005b25430297c6d049ab04809d37bb6b # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
+[2026-11-21T18:31:36.907Z] + mvn -B clean package -DskipTests
+[2026-11-21T18:31:37.458Z] [INFO] Scanning for projects...
+[2026-11-21T18:31:37.708Z] [INFO] 
+[2026-11-21T18:31:37.709Z] [INFO] --------------------< com.javeriana:zoo-fantastico >--------------------
+[2026-11-21T18:31:37.709Z] [INFO] Building zoo-fantastico 0.0.1-SNAPSHOT
+[2026-11-21T18:31:37.709Z] [INFO]   from pom.xml
+[2026-11-21T18:31:37.709Z] [INFO] --------------------------------[ jar ]---------------------------------
+[2026-11-21T18:31:38.259Z] [INFO] 
+[2026-11-21T18:31:38.259Z] [INFO] --- clean:3.3.2:clean (default-clean) @ zoo-fantastico ---
+[2026-11-21T18:31:38.259Z] [INFO] Deleting /var/jenkins_home/workspace/Pipeline-Docker-CRUD/target
+[2026-11-21T18:31:38.259Z] [INFO] 
+[2026-11-21T18:31:38.259Z] [INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ zoo-fantastico ---
+[2026-11-21T18:31:38.259Z] [INFO] argLine set to -javaagent:/var/jenkins_home/.m2/repository/org/jacoco/org.jacoco.agent/0.8.12/org.jacoco.agent-0.8.12-runtime.jar=destfile=/var/jenkins_home/workspace/Pipeline-Docker-CRUD/target/jacoco.exec
+[2026-11-21T18:31:38.259Z] [INFO] 
+[2026-11-21T18:31:38.259Z] [INFO] --- resources:3.3.1:resources (default-resources) @ zoo-fantastico ---
+[2026-11-21T18:31:38.259Z] [INFO] Copying 1 resource from src/main/resources to target/classes
+[2026-11-21T18:31:38.259Z] [INFO] Copying 0 resource from src/main/resources to target/classes
+[2026-11-21T18:31:38.259Z] [INFO] 
+[2026-11-21T18:31:38.259Z] [INFO] --- compiler:3.11.0:compile (default-compile) @ zoo-fantastico ---
+[2026-11-21T18:31:38.259Z] [INFO] Changes detected - recompiling the module! :source
+[2026-11-21T18:31:38.259Z] [INFO] Compiling 19 source files with javac [debug release 21] to target/classes
+[2026-11-21T18:31:40.121Z] [INFO] Annotation processing is enabled because one or more processors were found
+[2026-11-21T18:31:40.121Z]   on the class path. A future release of javac may disable annotation processing
+[2026-11-21T18:31:40.121Z]   unless at least one processor is specified by name (-processor), or a search
+[2026-11-21T18:31:40.121Z]   path is specified (--processor-path, --processor-module-path), or annotation
+[2026-11-21T18:31:40.121Z]   processing is enabled explicitly (-proc:only, -proc:full).
+[2026-11-21T18:31:40.121Z]   Use -Xlint:-options to suppress this message.
+[2026-11-21T18:31:40.121Z]   Use -proc:none to disable annotation processing.
+[2026-11-21T18:31:40.121Z] [INFO] 
+[2026-11-21T18:31:40.121Z] [INFO] --- resources:3.3.1:testResources (default-testResources) @ zoo-fantastico ---
+[2026-11-21T18:31:40.121Z] [INFO] Copying 1 resource from src/test/resources to target/test-classes
+[2026-11-21T18:31:40.121Z] [INFO] 
+[2026-11-21T18:31:40.121Z] [INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ zoo-fantastico ---
+[2026-11-21T18:31:40.121Z] [INFO] Changes detected - recompiling the module! :dependency
+[2026-11-21T18:31:40.121Z] [INFO] Compiling 6 source files with javac [debug release 21] to target/test-classes
+[2026-11-21T18:31:40.672Z] [INFO] Annotation processing is enabled because one or more processors were found
+[2026-11-21T18:31:40.672Z]   on the class path. A future release of javac may disable annotation processing
+[2026-11-21T18:31:40.672Z]   unless at least one processor is specified by name (-processor), or a search
+[2026-11-21T18:31:40.672Z]   path is specified (--processor-path, --processor-module-path), or annotation
+[2026-11-21T18:31:40.672Z]   processing is enabled explicitly (-proc:only, -proc:full).
+[2026-11-21T18:31:40.672Z]   Use -Xlint:-options to suppress this message.
+[2026-11-21T18:31:40.672Z]   Use -proc:none to disable annotation processing.
+[2026-11-21T18:31:40.672Z] [INFO] 
+[2026-11-21T18:31:40.672Z] [INFO] --- surefire:3.1.2:test (default-test) @ zoo-fantastico ---
+[2026-11-21T18:31:40.672Z] [INFO] Tests are skipped.
+[2026-11-21T18:31:40.672Z] [INFO] 
+[2026-11-21T18:31:40.672Z] [INFO] --- jacoco:0.8.12:report (report) @ zoo-fantastico ---
+[2026-11-21T18:31:40.672Z] [INFO] Skipping JaCoCo execution due to missing execution data file.
+[2026-11-21T18:31:40.672Z] [INFO] 
+[2026-11-21T18:31:40.672Z] [INFO] --- jar:3.3.0:jar (default-jar) @ zoo-fantastico ---
+[2026-11-21T18:31:40.923Z] [INFO] Building jar: /var/jenkins_home/workspace/Pipeline-Docker-CRUD/target/zoo-fantastico-0.0.1-SNAPSHOT.jar
+[2026-11-21T18:31:40.923Z] [INFO] 
+[2026-11-21T18:31:40.923Z] [INFO] --- spring-boot:3.2.4:repackage (repackage) @ zoo-fantastico ---
+[2026-11-21T18:31:41.475Z] [INFO] Replacing main artifact /var/jenkins_home/workspace/Pipeline-Docker-CRUD/target/zoo-fantastico-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[2026-11-21T18:31:41.475Z] [INFO] The original artifact has been renamed to /var/jenkins_home/workspace/Pipeline-Docker-CRUD/target/zoo-fantastico-0.0.1-SNAPSHOT.jar.original
+[2026-11-21T18:31:41.475Z] [INFO] ------------------------------------------------------------------------
+[2026-11-21T18:31:41.475Z] [INFO] BUILD SUCCESS
+[2026-11-21T18:31:41.475Z] [INFO] ------------------------------------------------------------------------
+[2026-11-21T18:31:41.475Z] [INFO] Total time:  3.844 s
+[2026-11-21T18:31:41.475Z] [INFO] Finished at: 2026-11-21T18:31:41Z
+[2026-11-21T18:31:41.475Z] [INFO] ------------------------------------------------------------------------
+[Pipeline] archiveArtifacts
+[2026-11-21T18:31:41.507Z] Archiving artifacts
+[2026-11-21T18:31:41.528Z] Recording fingerprints
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Run Tests)
+[Pipeline] sh
+[2026-11-21T18:31:42.001Z] + mvn -B test
+[2026-11-21T18:31:43.345Z] [INFO] Scanning for projects...
+[2026-11-21T18:31:43.896Z] [INFO] 
+[2026-11-21T18:31:43.896Z] [INFO] --------------------< com.javeriana:zoo-fantastico >--------------------
+[2026-11-21T18:31:43.896Z] [INFO] Building zoo-fantastico 0.0.1-SNAPSHOT
+[2026-11-21T18:31:43.896Z] [INFO]   from pom.xml
+[2026-11-21T18:31:43.896Z] [INFO] --------------------------------[ jar ]---------------------------------
+[2026-11-21T18:31:44.808Z] [INFO] 
+[2026-11-21T18:31:44.808Z] [INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ zoo-fantastico ---
+[2026-11-21T18:31:44.808Z] [INFO] argLine set to -javaagent:/var/jenkins_home/.m2/repository/org/jacoco/org.jacoco.agent/0.8.12/org.jacoco.agent-0.8.12-runtime.jar=destfile=/var/jenkins_home/workspace/Pipeline-Docker-CRUD/target/jacoco.exec
+[2026-11-21T18:31:44.808Z] [INFO] 
+[2026-11-21T18:31:44.808Z] [INFO] --- resources:3.3.1:resources (default-resources) @ zoo-fantastico ---
+[2026-11-21T18:31:45.059Z] [INFO] Copying 1 resource from src/main/resources to target/classes
+[2026-11-21T18:31:45.059Z] [INFO] Copying 0 resource from src/main/resources to target/classes
+[2026-11-21T18:31:45.059Z] [INFO] 
+[2026-11-21T18:31:45.059Z] [INFO] --- compiler:3.11.0:compile (default-compile) @ zoo-fantastico ---
+[2026-11-21T18:31:45.310Z] [INFO] Nothing to compile - all classes are up to date
+[2026-11-21T18:31:45.310Z] [INFO] 
+[2026-11-21T18:31:45.310Z] [INFO] --- resources:3.3.1:testResources (default-testResources) @ zoo-fantastico ---
+[2026-11-21T18:31:45.310Z] [INFO] Copying 1 resource from src/test/resources to target/test-classes
+[2026-11-21T18:31:45.310Z] [INFO] 
+[2026-11-21T18:31:45.310Z] [INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ zoo-fantastico ---
+[2026-11-21T18:31:45.310Z] [INFO] Nothing to compile - all classes are up to date
+[2026-11-21T18:31:45.310Z] [INFO] 
+[2026-11-21T18:31:45.310Z] [INFO] --- surefire:3.1.2:test (default-test) @ zoo-fantastico ---
+[2026-11-21T18:31:45.561Z] [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[2026-11-21T18:31:45.561Z] [INFO] 
+[2026-11-21T18:31:45.561Z] [INFO] -------------------------------------------------------
+[2026-11-21T18:31:45.561Z] [INFO]  T E S T S
+[2026-11-21T18:31:45.561Z] [INFO] -------------------------------------------------------
+[2026-11-21T18:31:47.423Z] [INFO] Running com.javeriana.zoofantastico.CreatureServiceTest
+[2026-11-21T18:31:48.335Z] WARNING: A Java agent has been loaded dynamically (/var/jenkins_home/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.12/byte-buddy-agent-1.14.12.jar)
+[2026-11-21T18:31:48.335Z] WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+[2026-11-21T18:31:48.335Z] WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+[2026-11-21T18:31:48.335Z] WARNING: Dynamic loading of agents will be disallowed by default in a future release
+[2026-11-21T18:31:52.460Z] [INFO] Tests run: 26, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.445 s -- in com.javeriana.zoofantastico.CreatureServiceTest
+[2026-11-21T18:31:52.460Z] [INFO] Running com.javeriana.zoofantastico.CreatureServiceIntegrationTest
+[2026-11-21T18:31:52.711Z] 18:31:52.424 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.javeriana.zoofantastico.CreatureServiceIntegrationTest]: CreatureServiceIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+[2026-11-21T18:31:52.962Z] 18:31:52.820 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.javeriana.zoofantastico.ZooFantasticoApplication for test class com.javeriana.zoofantastico.CreatureServiceIntegrationTest
+[2026-11-21T18:31:54.306Z] 
+[2026-11-21T18:31:54.306Z]   .   ____          _            __ _ _
+[2026-11-21T18:31:54.306Z]  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+[2026-11-21T18:31:54.306Z] ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+[2026-11-21T18:31:54.306Z]  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+[2026-11-21T18:31:54.306Z]   '  |____| .__|_| |_|_| |_\__, | / / / /
+[2026-11-21T18:31:54.306Z]  =========|_|==============|___/=/_/_/_/
+[2026-11-21T18:31:54.306Z]  :: Spring Boot ::                (v3.2.4)
+[2026-11-21T18:31:54.306Z] 
+[2026-11-21T18:31:54.557Z] 2026-11-21T18:31:54.388Z  INFO 2789 --- [zoo-fantastico] [           main] c.j.z.CreatureServiceIntegrationTest     : Starting CreatureServiceIntegrationTest using Java 21.0.13 with PID 2789 (started by jenkins in /var/jenkins_home/workspace/Pipeline-Docker-CRUD)
+[2026-11-21T18:31:54.557Z] 2026-11-21T18:31:54.392Z  INFO 2789 --- [zoo-fantastico] [           main] c.j.z.CreatureServiceIntegrationTest     : The following 1 profile is active: "test"
+[2026-11-21T18:31:56.421Z] 2026-11-21T18:31:56.239Z  INFO 2789 --- [zoo-fantastico] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2026-11-21T18:31:56.672Z] 2026-11-21T18:31:56.396Z  INFO 2789 --- [zoo-fantastico] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 129 ms. Found 2 JPA repository interfaces.
+[2026-11-21T18:31:57.584Z] 2026-11-21T18:31:57.305Z  INFO 2789 --- [zoo-fantastico] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+[2026-11-21T18:31:57.584Z] 2026-11-21T18:31:57.414Z  INFO 2789 --- [zoo-fantastico] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+[2026-11-21T18:31:57.584Z] 2026-11-21T18:31:57.478Z  INFO 2789 --- [zoo-fantastico] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+[2026-11-21T18:31:57.834Z] 2026-11-21T18:31:57.746Z  INFO 2789 --- [zoo-fantastico] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+[2026-11-21T18:31:58.085Z] 2026-11-21T18:31:57.808Z  INFO 2789 --- [zoo-fantastico] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+[2026-11-21T18:31:58.636Z] 2026-11-21T18:31:58.416Z  INFO 2789 --- [zoo-fantastico] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+[2026-11-21T18:31:58.636Z] 2026-11-21T18:31:58.419Z  INFO 2789 --- [zoo-fantastico] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+[2026-11-21T18:31:58.636Z] 2026-11-21T18:31:58.486Z  WARN 2789 --- [zoo-fantastico] [           main] org.hibernate.dialect.Dialect            : HHH000511: The 2.2.0 version for [org.hibernate.dialect.MySQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 8.0.0. Check the community dialects project for available legacy versions.
+[2026-11-21T18:31:58.636Z] 2026-11-21T18:31:58.493Z  WARN 2789 --- [zoo-fantastico] [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+[2026-11-21T18:32:00.499Z] 2026-11-21T18:32:00.086Z  INFO 2789 --- [zoo-fantastico] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[2026-11-21T18:32:00.499Z] Hibernate: 
+[2026-11-21T18:32:00.499Z]     alter table creatures 
+[2026-11-21T18:32:00.499Z]        drop 
+[2026-11-21T18:32:00.499Z]        foreign key FKskiwpva224l59w3liw6xxlrqk
+[2026-11-21T18:32:00.499Z] 2026-11-21T18:32:00.116Z  WARN 2789 --- [zoo-fantastico] [           main] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "
+[2026-11-21T18:32:00.499Z]     alter table creatures 
+[2026-11-21T18:32:00.499Z]        drop 
+[2026-11-21T18:32:00.499Z]        foreign key FKskiwpva224l59w3liw6xxlrqk" via JDBC [Table "CREATURES" not found;]
+[2026-11-21T18:32:00.499Z] 
+[2026-11-21T18:32:00.499Z] org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+[2026-11-21T18:32:00.499Z]     alter table creatures 
+[2026-11-21T18:32:00.499Z]        drop 
+[2026-11-21T18:32:00.499Z]        foreign key FKskiwpva224l59w3liw6xxlrqk" via JDBC [Table "CREATURES" not found;]
+[2026-11-21T18:32:00.499Z] 	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
+[2026-11-21T18:32:00.499Z] 	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
+[2026-11-21T18:32:00.499Z] 	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
+[2026-11-21T18:32:00.499Z] 	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:470) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
+[2026-11-21T18:32:00.499Z] 	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropConstraintsTablesSequences(SchemaDropperImpl.java:242) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
+[2026-11-21T18:32:00.499Z] 	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:215) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
+[2026-11-21T18:32:00.499Z] 	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:185) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
+[2026-11-21T18:32:00.499Z] 	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:155) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
+[2026-11-21T18:32:00.499Z] 	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:115) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
+[2026-11-21T18:32:00.499Z] 	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:244) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
+[2026-11-21T18:32:00.499Z] 	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
+[2026-11-21T18:32:00.499Z] 	at java.base/java.util.HashMap.forEach(Unknown Source) ~[na:na]
+[2026-11-21T18:32:00.499Z] 	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
+[2026-11-21T18:32:00.499Z] 	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
+[2026-11-21T18:32:00.499Z] 	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
+[2026-11-21T18:32:00.499Z] 	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
+[2026-11-21T18:32:00.499Z] 	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
+[2026-11-21T18:32:00.499Z] 	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75) ~[spring-orm-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390) ~[spring-orm-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366) ~[spring-orm-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1833) ~[spring-beans-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782) ~[spring-beans-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326) ~[spring-beans-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324) ~[spring-beans-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1234) ~[spring-context-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:952) ~[spring-context-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624) ~[spring-context-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.2.4.jar:3.2.4]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.2.4.jar:3.2.4]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) ~[spring-boot-3.2.4.jar:3.2.4]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137) ~[spring-boot-test-3.2.4.jar:3.2.4]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58) ~[spring-core-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46) ~[spring-core-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1454) ~[spring-boot-3.2.4.jar:3.2.4]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:553) ~[spring-boot-test-3.2.4.jar:3.2.4]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137) ~[spring-boot-test-3.2.4.jar:3.2.4]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108) ~[spring-boot-test-3.2.4.jar:3.2.4]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:225) ~[spring-test-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:152) ~[spring-test-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:130) ~[spring-test-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:191) ~[spring-test-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:130) ~[spring-test-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260) ~[spring-test-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:163) ~[spring-test-6.1.5.jar:6.1.5]
+[2026-11-21T18:32:00.499Z] 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+[2026-11-21T18:32:00.499Z] 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:383) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+[2026-11-21T18:32:00.499Z] 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+[2026-11-21T18:32:00.499Z] 	at java.base/java.util.stream.ReferencePipeline$3$1.accept(Unknown Source) ~[na:na]
+[2026-11-21T18:32:00.499Z] 	at java.base/java.util.stream.ReferencePipeline$2$1.accept(Unknown Source) ~[na:na]
+[2026-11-21T18:32:00.499Z] 	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(Unknown Source) ~[na:na]
+[2026-11-21T18:32:00.499Z] 	at java.base/java.util.stream.AbstractPipeline.copyInto(Unknown Source) ~[na:na]
+[2026-11-21T18:32:00.499Z] 	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source) ~[na:na]
+[2026-11-21T18:32:00.499Z] 	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(Unknown Source) ~[na:na]
+[2026-11-21T18:32:00.499Z] 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Unknown Source) ~[na:na]
+[2026-11-21T18:32:00.499Z] 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Unknown Source) ~[na:na]
+[2026-11-21T18:32:00.499Z] 	at java.base/java.util.stream.ReferencePipeline$Head.forEach(Unknown Source) ~[na:na]
+[2026-11-21T18:32:00.500Z] 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:290) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:289) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:279) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+[2026-11-21T18:32:00.500Z] 	at java.base/java.util.Optional.orElseGet(Unknown Source) ~[na:na]
+[2026-11-21T18:32:00.500Z] 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:278) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:106) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:105) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:69) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at java.base/java.util.ArrayList.forEach(Unknown Source) ~[na:na]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at java.base/java.util.ArrayList.forEach(Unknown Source) ~[na:na]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+[2026-11-21T18:32:00.500Z] 	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56) ~[surefire-junit-platform-3.1.2.jar:3.1.2]
+[2026-11-21T18:32:00.500Z] 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184) ~[surefire-junit-platform-3.1.2.jar:3.1.2]
+[2026-11-21T18:32:00.500Z] 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148) ~[surefire-junit-platform-3.1.2.jar:3.1.2]
+[2026-11-21T18:32:00.500Z] 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122) ~[surefire-junit-platform-3.1.2.jar:3.1.2]
+[2026-11-21T18:32:00.500Z] 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.1.2.jar:3.1.2]
+[2026-11-21T18:32:00.500Z] 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.1.2.jar:3.1.2]
+[2026-11-21T18:32:00.500Z] 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.1.2.jar:3.1.2]
+[2026-11-21T18:32:00.500Z] 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.1.2.jar:3.1.2]
+[2026-11-21T18:32:00.500Z] Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CREATURES" not found; SQL statement:
+[2026-11-21T18:32:00.500Z] 
+[2026-11-21T18:32:00.500Z]     alter table creatures 
+[2026-11-21T18:32:00.500Z]        drop 
+[2026-11-21T18:32:00.500Z]        foreign key FKskiwpva224l59w3liw6x [42102-224]
+[2026-11-21T18:32:00.500Z] 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514) ~[h2-2.2.224.jar:2.2.224]
+[2026-11-21T18:32:00.500Z] 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489) ~[h2-2.2.224.jar:2.2.224]
+[2026-11-21T18:32:00.500Z] 	at org.h2.message.DbException.get(DbException.java:223) ~[h2-2.2.224.jar:2.2.224]
+[2026-11-21T18:32:00.500Z] 	at org.h2.message.DbException.get(DbException.java:199) ~[h2-2.2.224.jar:2.2.224]
+[2026-11-21T18:32:00.500Z] 	at org.h2.command.ddl.AlterTable.update(AlterTable.java:43) ~[h2-2.2.224.jar:2.2.224]
+[2026-11-21T18:32:00.500Z] 	at org.h2.command.CommandContainer.update(CommandContainer.java:169) ~[h2-2.2.224.jar:2.2.224]
+[2026-11-21T18:32:00.500Z] 	at org.h2.command.Command.executeUpdate(Command.java:256) ~[h2-2.2.224.jar:2.2.224]
+[2026-11-21T18:32:00.500Z] 	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262) ~[h2-2.2.224.jar:2.2.224]
+[2026-11-21T18:32:00.500Z] 	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231) ~[h2-2.2.224.jar:2.2.224]
+[2026-11-21T18:32:00.500Z] 	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-5.0.1.jar:na]
+[2026-11-21T18:32:00.500Z] 	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-5.0.1.jar:na]
+[2026-11-21T18:32:00.500Z] 	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
+[2026-11-21T18:32:00.500Z] 	... 118 common frames omitted
+[2026-11-21T18:32:00.500Z] 
+[2026-11-21T18:32:00.500Z] Hibernate: 
+[2026-11-21T18:32:00.500Z]     drop table if exists creatures
+[2026-11-21T18:32:00.500Z] Hibernate: 
+[2026-11-21T18:32:00.500Z]     drop table if exists zones
+[2026-11-21T18:32:00.500Z] Hibernate: 
+[2026-11-21T18:32:00.500Z]     create table creatures (
+[2026-11-21T18:32:00.500Z]         danger_level integer not null,
+[2026-11-21T18:32:00.500Z]         size float(53) not null,
+[2026-11-21T18:32:00.500Z]         id bigint not null auto_increment,
+[2026-11-21T18:32:00.500Z]         zone_id bigint,
+[2026-11-21T18:32:00.500Z]         health_status varchar(255) not null,
+[2026-11-21T18:32:00.500Z]         name varchar(255) not null,
+[2026-11-21T18:32:00.500Z]         species varchar(255) not null,
+[2026-11-21T18:32:00.500Z]         primary key (id)
+[2026-11-21T18:32:00.500Z]     ) engine=InnoDB
+[2026-11-21T18:32:00.500Z] Hibernate: 
+[2026-11-21T18:32:00.500Z]     create table zones (
+[2026-11-21T18:32:00.500Z]         capacity integer not null,
+[2026-11-21T18:32:00.500Z]         id bigint not null auto_increment,
+[2026-11-21T18:32:00.500Z]         description varchar(255),
+[2026-11-21T18:32:00.500Z]         name varchar(255) not null,
+[2026-11-21T18:32:00.500Z]         primary key (id)
+[2026-11-21T18:32:00.500Z]     ) engine=InnoDB
+[2026-11-21T18:32:00.500Z] Hibernate: 
+[2026-11-21T18:32:00.500Z]     alter table creatures 
+[2026-11-21T18:32:00.500Z]        add constraint FKskiwpva224l59w3liw6xxlrqk 
+[2026-11-21T18:32:00.500Z]        foreign key (zone_id) 
+[2026-11-21T18:32:00.500Z]        references zones (id)
+[2026-11-21T18:32:00.500Z] 2026-11-21T18:32:00.177Z  INFO 2789 --- [zoo-fantastico] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2026-11-21T18:32:00.751Z] 2026-11-21T18:32:00.601Z  INFO 2789 --- [zoo-fantastico] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+[2026-11-21T18:32:02.095Z] 2026-11-21T18:32:01.855Z  WARN 2789 --- [zoo-fantastico] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2026-11-21T18:32:02.646Z] 2026-11-21T18:32:02.621Z  INFO 2789 --- [zoo-fantastico] [           main] c.j.z.CreatureServiceIntegrationTest     : Started CreatureServiceIntegrationTest in 9.211 seconds (process running for 16.929)
+[2026-11-21T18:32:02.897Z] Hibernate: 
+[2026-11-21T18:32:02.897Z]     insert 
+[2026-11-21T18:32:02.897Z]     into
+[2026-11-21T18:32:02.897Z]         zones
+[2026-11-21T18:32:02.897Z]         (capacity, description, name) 
+[2026-11-21T18:32:02.897Z]     values
+[2026-11-21T18:32:02.897Z]         (?, ?, ?)
+[2026-11-21T18:32:03.148Z] Hibernate: 
+[2026-11-21T18:32:03.148Z]     select
+[2026-11-21T18:32:03.148Z]         count(c1_0.id) 
+[2026-11-21T18:32:03.148Z]     from
+[2026-11-21T18:32:03.148Z]         creatures c1_0 
+[2026-11-21T18:32:03.148Z]     where
+[2026-11-21T18:32:03.148Z]         c1_0.zone_id=?
+[2026-11-21T18:32:03.148Z] Hibernate: 
+[2026-11-21T18:32:03.148Z]     insert 
+[2026-11-21T18:32:03.148Z]     into
+[2026-11-21T18:32:03.148Z]         creatures
+[2026-11-21T18:32:03.148Z]         (danger_level, health_status, name, size, species, zone_id) 
+[2026-11-21T18:32:03.148Z]     values
+[2026-11-21T18:32:03.148Z]         (?, ?, ?, ?, ?, ?)
+[2026-11-21T18:32:03.148Z] Hibernate: 
+[2026-11-21T18:32:03.148Z]     delete 
+[2026-11-21T18:32:03.148Z]     from
+[2026-11-21T18:32:03.148Z]         creatures 
+[2026-11-21T18:32:03.148Z]     where
+[2026-11-21T18:32:03.148Z]         id=?
+[2026-11-21T18:32:03.148Z] Hibernate: 
+[2026-11-21T18:32:03.148Z]     select
+[2026-11-21T18:32:03.148Z]         count(*) 
+[2026-11-21T18:32:03.148Z]     from
+[2026-11-21T18:32:03.148Z]         creatures c1_0 
+[2026-11-21T18:32:03.148Z]     where
+[2026-11-21T18:32:03.148Z]         c1_0.id=?
+[2026-11-21T18:32:03.399Z] Hibernate: 
+[2026-11-21T18:32:03.399Z]     insert 
+[2026-11-21T18:32:03.399Z]     into
+[2026-11-21T18:32:03.399Z]         zones
+[2026-11-21T18:32:03.399Z]         (capacity, description, name) 
+[2026-11-21T18:32:03.399Z]     values
+[2026-11-21T18:32:03.399Z]         (?, ?, ?)
+[2026-11-21T18:32:03.399Z] Hibernate: 
+[2026-11-21T18:32:03.399Z]     select
+[2026-11-21T18:32:03.399Z]         count(c1_0.id) 
+[2026-11-21T18:32:03.399Z]     from
+[2026-11-21T18:32:03.399Z]         creatures c1_0 
+[2026-11-21T18:32:03.399Z]     where
+[2026-11-21T18:32:03.399Z]         c1_0.zone_id=?
+[2026-11-21T18:32:03.399Z] Hibernate: 
+[2026-11-21T18:32:03.399Z]     insert 
+[2026-11-21T18:32:03.399Z]     into
+[2026-11-21T18:32:03.399Z]         creatures
+[2026-11-21T18:32:03.399Z]         (danger_level, health_status, name, size, species, zone_id) 
+[2026-11-21T18:32:03.399Z]     values
+[2026-11-21T18:32:03.399Z]         (?, ?, ?, ?, ?, ?)
+[2026-11-21T18:32:03.399Z] Hibernate: 
+[2026-11-21T18:32:03.399Z]     select
+[2026-11-21T18:32:03.399Z]         c1_0.id,
+[2026-11-21T18:32:03.399Z]         c1_0.danger_level,
+[2026-11-21T18:32:03.399Z]         c1_0.health_status,
+[2026-11-21T18:32:03.399Z]         c1_0.name,
+[2026-11-21T18:32:03.399Z]         c1_0.size,
+[2026-11-21T18:32:03.399Z]         c1_0.species,
+[2026-11-21T18:32:03.399Z]         z1_0.id,
+[2026-11-21T18:32:03.399Z]         z1_0.capacity,
+[2026-11-21T18:32:03.399Z]         z1_0.description,
+[2026-11-21T18:32:03.399Z]         z1_0.name 
+[2026-11-21T18:32:03.399Z]     from
+[2026-11-21T18:32:03.399Z]         creatures c1_0 
+[2026-11-21T18:32:03.399Z]     left join
+[2026-11-21T18:32:03.399Z]         zones z1_0 
+[2026-11-21T18:32:03.399Z]             on z1_0.id=c1_0.zone_id 
+[2026-11-21T18:32:03.399Z]     where
+[2026-11-21T18:32:03.399Z]         c1_0.id=?
+[2026-11-21T18:32:03.399Z] Hibernate: 
+[2026-11-21T18:32:03.399Z]     update
+[2026-11-21T18:32:03.399Z]         creatures 
+[2026-11-21T18:32:03.399Z]     set
+[2026-11-21T18:32:03.399Z]         danger_level=?,
+[2026-11-21T18:32:03.399Z]         health_status=?,
+[2026-11-21T18:32:03.399Z]         name=?,
+[2026-11-21T18:32:03.399Z]         size=?,
+[2026-11-21T18:32:03.399Z]         species=?,
+[2026-11-21T18:32:03.399Z]         zone_id=? 
+[2026-11-21T18:32:03.399Z]     where
+[2026-11-21T18:32:03.399Z]         id=?
+[2026-11-21T18:32:03.399Z] Hibernate: 
+[2026-11-21T18:32:03.399Z]     select
+[2026-11-21T18:32:03.399Z]         c1_0.id,
+[2026-11-21T18:32:03.399Z]         c1_0.danger_level,
+[2026-11-21T18:32:03.399Z]         c1_0.health_status,
+[2026-11-21T18:32:03.399Z]         c1_0.name,
+[2026-11-21T18:32:03.399Z]         c1_0.size,
+[2026-11-21T18:32:03.399Z]         c1_0.species,
+[2026-11-21T18:32:03.399Z]         c1_0.zone_id 
+[2026-11-21T18:32:03.399Z]     from
+[2026-11-21T18:32:03.399Z]         creatures c1_0 
+[2026-11-21T18:32:03.399Z]     where
+[2026-11-21T18:32:03.399Z]         c1_0.id=?
+[2026-11-21T18:32:03.399Z] Hibernate: 
+[2026-11-21T18:32:03.399Z]     insert 
+[2026-11-21T18:32:03.399Z]     into
+[2026-11-21T18:32:03.399Z]         zones
+[2026-11-21T18:32:03.399Z]         (capacity, description, name) 
+[2026-11-21T18:32:03.399Z]     values
+[2026-11-21T18:32:03.399Z]         (?, ?, ?)
+[2026-11-21T18:32:03.399Z] Hibernate: 
+[2026-11-21T18:32:03.399Z]     select
+[2026-11-21T18:32:03.399Z]         count(c1_0.id) 
+[2026-11-21T18:32:03.399Z]     from
+[2026-11-21T18:32:03.399Z]         creatures c1_0 
+[2026-11-21T18:32:03.399Z]     where
+[2026-11-21T18:32:03.399Z]         c1_0.zone_id=?
+[2026-11-21T18:32:03.399Z] Hibernate: 
+[2026-11-21T18:32:03.399Z]     insert 
+[2026-11-21T18:32:03.399Z]     into
+[2026-11-21T18:32:03.399Z]         creatures
+[2026-11-21T18:32:03.399Z]         (danger_level, health_status, name, size, species, zone_id) 
+[2026-11-21T18:32:03.399Z]     values
+[2026-11-21T18:32:03.399Z]         (?, ?, ?, ?, ?, ?)
+[2026-11-21T18:32:03.399Z] Hibernate: 
+[2026-11-21T18:32:03.399Z]     select
+[2026-11-21T18:32:03.399Z]         c1_0.id,
+[2026-11-21T18:32:03.399Z]         c1_0.danger_level,
+[2026-11-21T18:32:03.399Z]         c1_0.health_status,
+[2026-11-21T18:32:03.399Z]         c1_0.name,
+[2026-11-21T18:32:03.399Z]         c1_0.size,
+[2026-11-21T18:32:03.399Z]         c1_0.species,
+[2026-11-21T18:32:03.399Z]         c1_0.zone_id 
+[2026-11-21T18:32:03.399Z]     from
+[2026-11-21T18:32:03.399Z]         creatures c1_0 
+[2026-11-21T18:32:03.399Z]     where
+[2026-11-21T18:32:03.399Z]         c1_0.id=?
+[2026-11-21T18:32:03.399Z] [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.58 s -- in com.javeriana.zoofantastico.CreatureServiceIntegrationTest
+[2026-11-21T18:32:03.399Z] [INFO] Running com.javeriana.zoofantastico.ZooIntegrationTests
+[2026-11-21T18:32:03.650Z] 2026-11-21T18:32:03.365Z  INFO 2789 --- [zoo-fantastico] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.javeriana.zoofantastico.ZooIntegrationTests]: ZooIntegrationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+[2026-11-21T18:32:03.650Z] 2026-11-21T18:32:03.387Z  INFO 2789 --- [zoo-fantastico] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.javeriana.zoofantastico.ZooFantasticoApplication for test class com.javeriana.zoofantastico.ZooIntegrationTests
+[2026-11-21T18:32:03.650Z] 
+[2026-11-21T18:32:03.650Z]   .   ____          _            __ _ _
+[2026-11-21T18:32:03.650Z]  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+[2026-11-21T18:32:03.650Z] ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+[2026-11-21T18:32:03.650Z]  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+[2026-11-21T18:32:03.650Z]   '  |____| .__|_| |_|_| |_\__, | / / / /
+[2026-11-21T18:32:03.650Z]  =========|_|==============|___/=/_/_/_/
+[2026-11-21T18:32:03.650Z]  :: Spring Boot ::                (v3.2.4)
+[2026-11-21T18:32:03.650Z] 
+[2026-11-21T18:32:03.650Z] 2026-11-21T18:32:03.460Z  INFO 2789 --- [zoo-fantastico] [           main] c.j.zoofantastico.ZooIntegrationTests    : Starting ZooIntegrationTests using Java 21.0.13 with PID 2789 (started by jenkins in /var/jenkins_home/workspace/Pipeline-Docker-CRUD)
+[2026-11-21T18:32:03.650Z] 2026-11-21T18:32:03.461Z  INFO 2789 --- [zoo-fantastico] [           main] c.j.zoofantastico.ZooIntegrationTests    : The following 1 profile is active: "test"
+[2026-11-21T18:32:03.901Z] 2026-11-21T18:32:03.730Z  INFO 2789 --- [zoo-fantastico] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2026-11-21T18:32:03.901Z] 2026-11-21T18:32:03.743Z  INFO 2789 --- [zoo-fantastico] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 2 JPA repository interfaces.
+[2026-11-21T18:32:04.152Z] 2026-11-21T18:32:03.875Z  INFO 2789 --- [zoo-fantastico] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+[2026-11-21T18:32:04.152Z] 2026-11-21T18:32:03.877Z  INFO 2789 --- [zoo-fantastico] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+[2026-11-21T18:32:04.152Z] 2026-11-21T18:32:03.882Z  INFO 2789 --- [zoo-fantastico] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+[2026-11-21T18:32:04.152Z] 2026-11-21T18:32:03.883Z  INFO 2789 --- [zoo-fantastico] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+[2026-11-21T18:32:04.152Z] 2026-11-21T18:32:03.885Z  INFO 2789 --- [zoo-fantastico] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:testdb user=SA
+[2026-11-21T18:32:04.152Z] 2026-11-21T18:32:03.886Z  INFO 2789 --- [zoo-fantastico] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+[2026-11-21T18:32:04.152Z] 2026-11-21T18:32:03.887Z  WARN 2789 --- [zoo-fantastico] [           main] org.hibernate.dialect.Dialect            : HHH000511: The 2.2.0 version for [org.hibernate.dialect.MySQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 8.0.0. Check the community dialects project for available legacy versions.
+[2026-11-21T18:32:04.152Z] 2026-11-21T18:32:03.887Z  WARN 2789 --- [zoo-fantastico] [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+[2026-11-21T18:32:04.152Z] 2026-11-21T18:32:03.985Z  INFO 2789 --- [zoo-fantastico] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[2026-11-21T18:32:04.152Z] Hibernate: 
+[2026-11-21T18:32:04.152Z]     alter table creatures 
+[2026-11-21T18:32:04.152Z]        drop 
+[2026-11-21T18:32:04.152Z]        foreign key FKskiwpva224l59w3liw6xxlrqk
+[2026-11-21T18:32:04.152Z] Hibernate: 
+[2026-11-21T18:32:04.152Z]     drop table if exists creatures
+[2026-11-21T18:32:04.152Z] Hibernate: 
+[2026-11-21T18:32:04.152Z]     drop table if exists zones
+[2026-11-21T18:32:04.152Z] Hibernate: 
+[2026-11-21T18:32:04.152Z]     create table creatures (
+[2026-11-21T18:32:04.152Z]         danger_level integer not null,
+[2026-11-21T18:32:04.152Z]         size float(53) not null,
+[2026-11-21T18:32:04.152Z]         id bigint not null auto_increment,
+[2026-11-21T18:32:04.152Z]         zone_id bigint,
+[2026-11-21T18:32:04.152Z]         health_status varchar(255) not null,
+[2026-11-21T18:32:04.152Z]         name varchar(255) not null,
+[2026-11-21T18:32:04.152Z]         species varchar(255) not null,
+[2026-11-21T18:32:04.152Z]         primary key (id)
+[2026-11-21T18:32:04.152Z]     ) engine=InnoDB
+[2026-11-21T18:32:04.152Z] Hibernate: 
+[2026-11-21T18:32:04.152Z]     create table zones (
+[2026-11-21T18:32:04.152Z]         capacity integer not null,
+[2026-11-21T18:32:04.152Z]         id bigint not null auto_increment,
+[2026-11-21T18:32:04.152Z]         description varchar(255),
+[2026-11-21T18:32:04.152Z]         name varchar(255) not null,
+[2026-11-21T18:32:04.152Z]         primary key (id)
+[2026-11-21T18:32:04.152Z]     ) engine=InnoDB
+[2026-11-21T18:32:04.152Z] Hibernate: 
+[2026-11-21T18:32:04.152Z]     alter table creatures 
+[2026-11-21T18:32:04.152Z]        add constraint FKskiwpva224l59w3liw6xxlrqk 
+[2026-11-21T18:32:04.152Z]        foreign key (zone_id) 
+[2026-11-21T18:32:04.152Z]        references zones (id)
+[2026-11-21T18:32:04.152Z] 2026-11-21T18:32:04.000Z  INFO 2789 --- [zoo-fantastico] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2026-11-21T18:32:04.403Z] 2026-11-21T18:32:04.182Z  WARN 2789 --- [zoo-fantastico] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2026-11-21T18:32:04.654Z] 2026-11-21T18:32:04.415Z  INFO 2789 --- [zoo-fantastico] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+[2026-11-21T18:32:04.654Z] 2026-11-21T18:32:04.416Z  INFO 2789 --- [zoo-fantastico] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+[2026-11-21T18:32:04.654Z] 2026-11-21T18:32:04.420Z  INFO 2789 --- [zoo-fantastico] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+[2026-11-21T18:32:04.654Z] 2026-11-21T18:32:04.438Z  INFO 2789 --- [zoo-fantastico] [           main] c.j.zoofantastico.ZooIntegrationTests    : Started ZooIntegrationTests in 1.043 seconds (process running for 18.746)
+[2026-11-21T18:32:04.905Z] Hibernate: 
+[2026-11-21T18:32:04.905Z]     insert 
+[2026-11-21T18:32:04.905Z]     into
+[2026-11-21T18:32:04.905Z]         zones
+[2026-11-21T18:32:04.905Z]         (capacity, description, name) 
+[2026-11-21T18:32:04.905Z]     values
+[2026-11-21T18:32:04.905Z]         (?, ?, ?)
+[2026-11-21T18:32:05.156Z] Hibernate: 
+[2026-11-21T18:32:05.156Z]     select
+[2026-11-21T18:32:05.156Z]         count(c1_0.id) 
+[2026-11-21T18:32:05.156Z]     from
+[2026-11-21T18:32:05.156Z]         creatures c1_0 
+[2026-11-21T18:32:05.156Z]     where
+[2026-11-21T18:32:05.156Z]         c1_0.zone_id=?
+[2026-11-21T18:32:05.156Z] Hibernate: 
+[2026-11-21T18:32:05.156Z]     insert 
+[2026-11-21T18:32:05.156Z]     into
+[2026-11-21T18:32:05.156Z]         creatures
+[2026-11-21T18:32:05.156Z]         (danger_level, health_status, name, size, species, zone_id) 
+[2026-11-21T18:32:05.156Z]     values
+[2026-11-21T18:32:05.156Z]         (?, ?, ?, ?, ?, ?)
+[2026-11-21T18:32:05.156Z] Hibernate: 
+[2026-11-21T18:32:05.156Z]     select
+[2026-11-21T18:32:05.156Z]         c1_0.id,
+[2026-11-21T18:32:05.156Z]         c1_0.danger_level,
+[2026-11-21T18:32:05.156Z]         c1_0.health_status,
+[2026-11-21T18:32:05.156Z]         c1_0.name,
+[2026-11-21T18:32:05.156Z]         c1_0.size,
+[2026-11-21T18:32:05.156Z]         c1_0.species,
+[2026-11-21T18:32:05.156Z]         c1_0.zone_id 
+[2026-11-21T18:32:05.156Z]     from
+[2026-11-21T18:32:05.156Z]         creatures c1_0 
+[2026-11-21T18:32:05.156Z]     where
+[2026-11-21T18:32:05.156Z]         c1_0.id=?
+[2026-11-21T18:32:05.156Z] Hibernate: 
+[2026-11-21T18:32:05.156Z]     select
+[2026-11-21T18:32:05.156Z]         z1_0.id,
+[2026-11-21T18:32:05.156Z]         z1_0.capacity,
+[2026-11-21T18:32:05.156Z]         z1_0.description,
+[2026-11-21T18:32:05.156Z]         z1_0.name 
+[2026-11-21T18:32:05.156Z]     from
+[2026-11-21T18:32:05.156Z]         zones z1_0 
+[2026-11-21T18:32:05.156Z]     where
+[2026-11-21T18:32:05.156Z]         z1_0.id=?
+[2026-11-21T18:32:05.156Z] Hibernate: 
+[2026-11-21T18:32:05.156Z]     select
+[2026-11-21T18:32:05.156Z]         count(c1_0.id) 
+[2026-11-21T18:32:05.156Z]     from
+[2026-11-21T18:32:05.156Z]         creatures c1_0 
+[2026-11-21T18:32:05.156Z]     where
+[2026-11-21T18:32:05.156Z]         c1_0.zone_id=?
+[2026-11-21T18:32:05.156Z] Hibernate: 
+[2026-11-21T18:32:05.156Z]     select
+[2026-11-21T18:32:05.156Z]         count(c1_0.id) 
+[2026-11-21T18:32:05.156Z]     from
+[2026-11-21T18:32:05.156Z]         creatures c1_0 
+[2026-11-21T18:32:05.156Z]     where
+[2026-11-21T18:32:05.156Z]         c1_0.zone_id=?
+[2026-11-21T18:32:05.156Z] Hibernate: 
+[2026-11-21T18:32:05.156Z]     select
+[2026-11-21T18:32:05.156Z]         count(c1_0.id) 
+[2026-11-21T18:32:05.156Z]     from
+[2026-11-21T18:32:05.156Z]         creatures c1_0 
+[2026-11-21T18:32:05.156Z]     where
+[2026-11-21T18:32:05.156Z]         c1_0.zone_id=?
+[2026-11-21T18:32:05.156Z] Hibernate: 
+[2026-11-21T18:32:05.156Z]     select
+[2026-11-21T18:32:05.156Z]         c1_0.id,
+[2026-11-21T18:32:05.156Z]         c1_0.danger_level,
+[2026-11-21T18:32:05.156Z]         c1_0.health_status,
+[2026-11-21T18:32:05.156Z]         c1_0.name,
+[2026-11-21T18:32:05.156Z]         c1_0.size,
+[2026-11-21T18:32:05.156Z]         c1_0.species,
+[2026-11-21T18:32:05.156Z]         z1_0.id,
+[2026-11-21T18:32:05.156Z]         z1_0.capacity,
+[2026-11-21T18:32:05.156Z]         z1_0.description,
+[2026-11-21T18:32:05.156Z]         z1_0.name 
+[2026-11-21T18:32:05.156Z]     from
+[2026-11-21T18:32:05.156Z]         creatures c1_0 
+[2026-11-21T18:32:05.156Z]     left join
+[2026-11-21T18:32:05.156Z]         zones z1_0 
+[2026-11-21T18:32:05.156Z]             on z1_0.id=c1_0.zone_id 
+[2026-11-21T18:32:05.156Z]     where
+[2026-11-21T18:32:05.156Z]         c1_0.id=?
+[2026-11-21T18:32:05.156Z] Hibernate: 
+[2026-11-21T18:32:05.156Z]     update
+[2026-11-21T18:32:05.156Z]         creatures 
+[2026-11-21T18:32:05.156Z]     set
+[2026-11-21T18:32:05.156Z]         danger_level=?,
+[2026-11-21T18:32:05.156Z]         health_status=?,
+[2026-11-21T18:32:05.156Z]         name=?,
+[2026-11-21T18:32:05.156Z]         size=?,
+[2026-11-21T18:32:05.156Z]         species=?,
+[2026-11-21T18:32:05.156Z]         zone_id=? 
+[2026-11-21T18:32:05.156Z]     where
+[2026-11-21T18:32:05.156Z]         id=?
+[2026-11-21T18:32:05.156Z] Hibernate: 
+[2026-11-21T18:32:05.156Z]     select
+[2026-11-21T18:32:05.156Z]         c1_0.id,
+[2026-11-21T18:32:05.156Z]         c1_0.danger_level,
+[2026-11-21T18:32:05.156Z]         c1_0.health_status,
+[2026-11-21T18:32:05.156Z]         c1_0.name,
+[2026-11-21T18:32:05.156Z]         c1_0.size,
+[2026-11-21T18:32:05.156Z]         c1_0.species,
+[2026-11-21T18:32:05.156Z]         c1_0.zone_id 
+[2026-11-21T18:32:05.156Z]     from
+[2026-11-21T18:32:05.156Z]         creatures c1_0 
+[2026-11-21T18:32:05.156Z]     where
+[2026-11-21T18:32:05.156Z]         c1_0.id=?
+[2026-11-21T18:32:05.156Z] Hibernate: 
+[2026-11-21T18:32:05.156Z]     select
+[2026-11-21T18:32:05.156Z]         c1_0.id,
+[2026-11-21T18:32:05.156Z]         c1_0.danger_level,
+[2026-11-21T18:32:05.156Z]         c1_0.health_status,
+[2026-11-21T18:32:05.156Z]         c1_0.name,
+[2026-11-21T18:32:05.156Z]         c1_0.size,
+[2026-11-21T18:32:05.156Z]         c1_0.species,
+[2026-11-21T18:32:05.156Z]         z1_0.id,
+[2026-11-21T18:32:05.156Z]         z1_0.capacity,
+[2026-11-21T18:32:05.156Z]         z1_0.description,
+[2026-11-21T18:32:05.156Z]         z1_0.name 
+[2026-11-21T18:32:05.156Z]     from
+[2026-11-21T18:32:05.156Z]         creatures c1_0 
+[2026-11-21T18:32:05.156Z]     left join
+[2026-11-21T18:32:05.156Z]         zones z1_0 
+[2026-11-21T18:32:05.156Z]             on z1_0.id=c1_0.zone_id 
+[2026-11-21T18:32:05.156Z]     where
+[2026-11-21T18:32:05.156Z]         c1_0.id=?
+[2026-11-21T18:32:05.156Z] Hibernate: 
+[2026-11-21T18:32:05.156Z]     delete 
+[2026-11-21T18:32:05.156Z]     from
+[2026-11-21T18:32:05.156Z]         creatures 
+[2026-11-21T18:32:05.156Z]     where
+[2026-11-21T18:32:05.156Z]         id=?
+[2026-11-21T18:32:05.156Z] Hibernate: 
+[2026-11-21T18:32:05.156Z]     select
+[2026-11-21T18:32:05.156Z]         count(*) 
+[2026-11-21T18:32:05.156Z]     from
+[2026-11-21T18:32:05.156Z]         creatures c1_0 
+[2026-11-21T18:32:05.156Z]     where
+[2026-11-21T18:32:05.156Z]         c1_0.id=?
+[2026-11-21T18:32:05.156Z] Hibernate: 
+[2026-11-21T18:32:05.156Z]     select
+[2026-11-21T18:32:05.156Z]         c1_0.id,
+[2026-11-21T18:32:05.156Z]         c1_0.danger_level,
+[2026-11-21T18:32:05.156Z]         c1_0.health_status,
+[2026-11-21T18:32:05.156Z]         c1_0.name,
+[2026-11-21T18:32:05.156Z]         c1_0.size,
+[2026-11-21T18:32:05.156Z]         c1_0.species,
+[2026-11-21T18:32:05.156Z]         z1_0.id,
+[2026-11-21T18:32:05.156Z]         z1_0.capacity,
+[2026-11-21T18:32:05.156Z]         z1_0.description,
+[2026-11-21T18:32:05.156Z]         z1_0.name 
+[2026-11-21T18:32:05.156Z]     from
+[2026-11-21T18:32:05.156Z]         creatures c1_0 
+[2026-11-21T18:32:05.156Z]     left join
+[2026-11-21T18:32:05.156Z]         zones z1_0 
+[2026-11-21T18:32:05.156Z]             on z1_0.id=c1_0.zone_id 
+[2026-11-21T18:32:05.156Z]     where
+[2026-11-21T18:32:05.156Z]         c1_0.id=?
+[2026-11-21T18:32:05.156Z] Hibernate: 
+[2026-11-21T18:32:05.156Z]     select
+[2026-11-21T18:32:05.156Z]         z1_0.id,
+[2026-11-21T18:32:05.156Z]         z1_0.capacity,
+[2026-11-21T18:32:05.156Z]         z1_0.description,
+[2026-11-21T18:32:05.156Z]         z1_0.name 
+[2026-11-21T18:32:05.156Z]     from
+[2026-11-21T18:32:05.156Z]         zones z1_0 
+[2026-11-21T18:32:05.156Z]     where
+[2026-11-21T18:32:05.156Z]         z1_0.id=?
+[2026-11-21T18:32:05.156Z] Hibernate: 
+[2026-11-21T18:32:05.156Z]     select
+[2026-11-21T18:32:05.156Z]         count(c1_0.id) 
+[2026-11-21T18:32:05.156Z]     from
+[2026-11-21T18:32:05.156Z]         creatures c1_0 
+[2026-11-21T18:32:05.156Z]     where
+[2026-11-21T18:32:05.156Z]         c1_0.zone_id=?
+[2026-11-21T18:32:05.156Z] Hibernate: 
+[2026-11-21T18:32:05.156Z]     select
+[2026-11-21T18:32:05.156Z]         c1_0.zone_id,
+[2026-11-21T18:32:05.156Z]         c1_0.id,
+[2026-11-21T18:32:05.156Z]         c1_0.danger_level,
+[2026-11-21T18:32:05.156Z]         c1_0.health_status,
+[2026-11-21T18:32:05.156Z]         c1_0.name,
+[2026-11-21T18:32:05.156Z]         c1_0.size,
+[2026-11-21T18:32:05.156Z]         c1_0.species 
+[2026-11-21T18:32:05.156Z]     from
+[2026-11-21T18:32:05.156Z]         creatures c1_0 
+[2026-11-21T18:32:05.156Z]     where
+[2026-11-21T18:32:05.156Z]         c1_0.zone_id=?
+[2026-11-21T18:32:05.156Z] [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.671 s -- in com.javeriana.zoofantastico.ZooIntegrationTests
+[2026-11-21T18:32:05.156Z] [INFO] Running com.javeriana.zoofantastico.ZoneServiceTest
+[2026-11-21T18:32:05.156Z] [INFO] Tests run: 17, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.071 s -- in com.javeriana.zoofantastico.ZoneServiceTest
+[2026-11-21T18:32:05.156Z] [INFO] Running com.javeriana.zoofantastico.ZooFantasticoApplicationTests
+[2026-11-21T18:32:05.156Z] 2026-11-21T18:32:05.109Z  INFO 2789 --- [zoo-fantastico] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.javeriana.zoofantastico.ZooFantasticoApplicationTests]: ZooFantasticoApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+[2026-11-21T18:32:05.156Z] 2026-11-21T18:32:05.110Z  INFO 2789 --- [zoo-fantastico] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.javeriana.zoofantastico.ZooFantasticoApplication for test class com.javeriana.zoofantastico.ZooFantasticoApplicationTests
+[2026-11-21T18:32:05.156Z] [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s -- in com.javeriana.zoofantastico.ZooFantasticoApplicationTests
+[2026-11-21T18:32:05.156Z] [INFO] Running com.javeriana.zoofantastico.RequestValidationTest
+[2026-11-21T18:32:05.407Z] [INFO] Tests run: 22, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.105 s -- in com.javeriana.zoofantastico.RequestValidationTest
+[2026-11-21T18:32:05.407Z] [INFO] 
+[2026-11-21T18:32:05.407Z] [INFO] Results:
+[2026-11-21T18:32:05.407Z] [INFO] 
+[2026-11-21T18:32:05.407Z] [INFO] Tests run: 71, Failures: 0, Errors: 0, Skipped: 0
+[2026-11-21T18:32:05.407Z] [INFO] 
+[2026-11-21T18:32:05.407Z] [INFO] 
+[2026-11-21T18:32:05.407Z] [INFO] --- jacoco:0.8.12:report (report) @ zoo-fantastico ---
+[2026-11-21T18:32:05.658Z] [INFO] Loading execution data file /var/jenkins_home/workspace/Pipeline-Docker-CRUD/target/jacoco.exec
+[2026-11-21T18:32:05.658Z] [INFO] Analyzed bundle 'zoo-fantastico' with 19 classes
+[2026-11-21T18:32:05.909Z] [INFO] ------------------------------------------------------------------------
+[2026-11-21T18:32:05.909Z] [INFO] BUILD SUCCESS
+[2026-11-21T18:32:05.909Z] [INFO] ------------------------------------------------------------------------
+[2026-11-21T18:32:05.909Z] [INFO] Total time:  22.555 s
+[2026-11-21T18:32:05.909Z] [INFO] Finished at: 2026-11-21T18:32:05Z
+[2026-11-21T18:32:05.909Z] [INFO] ------------------------------------------------------------------------
+Post stage
+[Pipeline] junit
+[2026-11-21T18:32:05.941Z] Recording test results
+[2026-11-21T18:32:05.967Z] [Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Docker Build)
+[Pipeline] sh
+[2026-11-21T18:32:06.342Z] + docker compose build app
+[2026-11-21T18:32:06.342Z] time="2026-11-21T18:32:06Z" level=warning msg="buildx Docker CLI plugin not found: falling back to the classic builder. BuildKit-only build features (multi-arch, secrets, ssh, additional contexts, ...) will not be available"
+[2026-11-21T18:32:06.342Z]  Image zoo-fantastic-app:latest Building 
+[2026-11-21T18:32:06.342Z]  Image zoo-fantastic-app:latest Building 
+[2026-11-21T18:32:06.342Z] Sending build context to Docker daemon  23.77kB[2026-11-21T18:32:06.342Z] 
+[2026-11-21T18:32:06.342Z] Step 1/14 : FROM maven:3.9.6-eclipse-temurin-21-alpine AS build
+[2026-11-21T18:32:06.342Z]  ---> 9fca6934e64e
+[2026-11-21T18:32:06.342Z] Step 2/14 : WORKDIR /app
+[2026-11-21T18:32:06.342Z]  ---> Using cache
+[2026-11-21T18:32:06.342Z]  ---> bf567f1f113c
+[2026-11-21T18:32:06.342Z] Step 3/14 : COPY pom.xml .
+[2026-11-21T18:32:06.342Z]  ---> Using cache
+[2026-11-21T18:32:06.342Z]  ---> e5cd41e57735
+[2026-11-21T18:32:06.342Z] Step 4/14 : RUN mvn dependency:go-offline -B
+[2026-11-21T18:32:06.342Z]  ---> Using cache
+[2026-11-21T18:32:06.342Z]  ---> cbccd20e7fbc
+[2026-11-21T18:32:06.342Z] Step 5/14 : COPY src ./src
+[2026-11-21T18:32:06.342Z]  ---> Using cache
+[2026-11-21T18:32:06.342Z]  ---> 45565258e89b
+[2026-11-21T18:32:06.342Z] Step 6/14 : RUN mvn clean package -DskipTests
+[2026-11-21T18:32:06.342Z]  ---> Using cache
+[2026-11-21T18:32:06.342Z]  ---> 70444889ea2c
+[2026-11-21T18:32:06.342Z] Step 7/14 : FROM eclipse-temurin:21-jre-alpine
+[2026-11-21T18:32:06.342Z]  ---> 5d7689f47d67
+[2026-11-21T18:32:06.342Z] Step 8/14 : WORKDIR /app
+[2026-11-21T18:32:06.342Z]  ---> Using cache
+[2026-11-21T18:32:06.342Z]  ---> 6a600c52ae6a
+[2026-11-21T18:32:06.342Z] Step 9/14 : RUN addgroup -S spring && adduser -S spring -G spring
+[2026-11-21T18:32:06.342Z]  ---> Using cache
+[2026-11-21T18:32:06.342Z]  ---> 5cb1ff795ddd
+[2026-11-21T18:32:06.342Z] Step 10/14 : USER spring:spring
+[2026-11-21T18:32:06.342Z]  ---> Using cache
+[2026-11-21T18:32:06.342Z]  ---> ccd5d7e94855
+[2026-11-21T18:32:06.342Z] Step 11/14 : COPY --from=build /app/target/*.jar app.jar
+[2026-11-21T18:32:06.593Z]  ---> Using cache
+[2026-11-21T18:32:06.593Z]  ---> 0330ea463f14
+[2026-11-21T18:32:06.593Z] Step 12/14 : EXPOSE 8080
+[2026-11-21T18:32:06.593Z]  ---> Using cache
+[2026-11-21T18:32:06.593Z]  ---> 06131e59b3cf
+[2026-11-21T18:32:06.593Z] Step 13/14 : ENTRYPOINT ["java", "-jar", "app.jar"]
+[2026-11-21T18:32:06.593Z]  ---> Using cache
+[2026-11-21T18:32:06.593Z]  ---> 0cba95e21e7a
+[2026-11-21T18:32:06.593Z] Step 14/14 : LABEL com.docker.compose.image.builder=classic
+[2026-11-21T18:32:06.593Z]  ---> Using cache
+[2026-11-21T18:32:06.593Z]  ---> cc929c495c44
+[2026-11-21T18:32:06.593Z] Successfully built cc929c495c44
+[2026-11-21T18:32:06.593Z] Successfully tagged zoo-fantastic-app:latest
+[2026-11-21T18:32:06.593Z]  Image zoo-fantastic-app:latest Built 
+[2026-11-21T18:32:06.593Z]  Image zoo-fantastic-app:latest Built 
+[Pipeline] sh
+[2026-11-21T18:32:06.876Z] + docker image ls zoo-fantastic-app
+[2026-11-21T18:32:06.876Z] IMAGE                      ID             DISK USAGE   CONTENT SIZE   EXTRA
+[2026-11-21T18:32:06.876Z] zoo-fantastic-app:latest   cc929c495c44        387MB          120MB   U    
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Docker Run)
+[Pipeline] sh
+[2026-11-21T18:32:07.234Z] + docker compose down --remove-orphans
+[2026-11-21T18:32:07.234Z]  Container zoo-app Stopping 
+[2026-11-21T18:32:07.485Z]  Container zoo-app Stopped 
+[2026-11-21T18:32:07.485Z]  Container zoo-app Removing 
+[2026-11-21T18:32:07.485Z]  Container zoo-app Removed 
+[2026-11-21T18:32:07.485Z]  Container zoo-mysql Stopping 
+[2026-11-21T18:32:11.611Z]  Container zoo-mysql Stopped 
+[2026-11-21T18:32:11.611Z]  Container zoo-mysql Removing 
+[2026-11-21T18:32:11.611Z]  Container zoo-mysql Removed 
+[2026-11-21T18:32:11.612Z]  Network zoo-fantastico_zoo-network Removing 
+[2026-11-21T18:32:11.612Z]  Network zoo-fantastico_zoo-network Removed 
+[Pipeline] sh
+[2026-11-21T18:32:11.891Z] + docker compose up -d
+[2026-11-21T18:32:11.891Z]  Network zoo-fantastico_zoo-network Creating 
+[2026-11-21T18:32:11.891Z]  Network zoo-fantastico_zoo-network Created 
+[2026-11-21T18:32:11.891Z]  Container zoo-mysql Creating 
+[2026-11-21T18:32:11.891Z]  Container zoo-mysql Created 
+[2026-11-21T18:32:11.891Z]  Container zoo-app Creating 
+[2026-11-21T18:32:11.891Z]  Container zoo-app Created 
+[2026-11-21T18:32:11.891Z]  Container zoo-mysql Starting 
+[2026-11-21T18:32:12.142Z]  Container zoo-mysql Started 
+[2026-11-21T18:32:12.142Z]  Container zoo-mysql Waiting 
+[2026-11-21T18:32:18.627Z]  Container zoo-mysql Healthy 
+[2026-11-21T18:32:18.627Z]  Container zoo-app Starting 
+[2026-11-21T18:32:18.627Z]  Container zoo-app Started 
+[Pipeline] sh
+[2026-11-21T18:32:18.904Z] + docker compose ps
+[2026-11-21T18:32:18.904Z] NAME        IMAGE                      COMMAND                  SERVICE     CREATED         STATUS                   PORTS
+[2026-11-21T18:32:18.905Z] zoo-app     zoo-fantastic-app:latest   "java -jar app.jar"      app         7 seconds ago   Up 1 second              0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp
+[2026-11-21T18:32:18.905Z] zoo-mysql   mysql:8.0                  "docker-entrypoint.s…"   zoo-mysql   7 seconds ago   Up 6 seconds (healthy)   0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp, 33060/tcp
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Smoke Test)
+[Pipeline] sh
+[2026-11-21T18:32:19.242Z] + seq 1 40
+[2026-11-21T18:32:19.242Z] + curl -s -o /dev/null -w %{http_code} http://host.docker.internal:8081/api/zones
+[2026-11-21T18:32:19.242Z] + true
+[2026-11-21T18:32:19.242Z] + code=000
+[2026-11-21T18:32:19.242Z] + [ 000 = 200 ]
+[2026-11-21T18:32:19.242Z] + echo Esperando la app (intento 1, HTTP 000)...
+[2026-11-21T18:32:19.242Z] Esperando la app (intento 1, HTTP 000)...
+[2026-11-21T18:32:19.242Z] + sleep 3
+[2026-11-21T18:32:22.470Z] + curl -s -o /dev/null -w %{http_code} http://host.docker.internal:8081/api/zones
+[2026-11-21T18:32:22.470Z] + true
+[2026-11-21T18:32:22.470Z] + code=000
+[2026-11-21T18:32:22.470Z] + [ 000 = 200 ]
+[2026-11-21T18:32:22.470Z] + echo Esperando la app (intento 2, HTTP 000)...
+[2026-11-21T18:32:22.470Z] Esperando la app (intento 2, HTTP 000)...
+[2026-11-21T18:32:22.470Z] + sleep 3
+[2026-11-21T18:32:25.700Z] + curl -s -o /dev/null -w %{http_code} http://host.docker.internal:8081/api/zones
+[2026-11-21T18:32:25.700Z] + code=200
+[2026-11-21T18:32:25.700Z] + [ 200 = 200 ]
+[2026-11-21T18:32:25.700Z] + echo API arriba: GET /api/zones -> 200
+[2026-11-21T18:32:25.700Z] API arriba: GET /api/zones -> 200
+[2026-11-21T18:32:25.700Z] + curl -s http://host.docker.internal:8081/api/zones
+[2026-11-21T18:32:25.700Z] []+ echo
+[2026-11-21T18:32:25.700Z] 
+[2026-11-21T18:32:25.700Z] + exit 0
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+[2026-11-21T18:32:25.787Z] Pipeline terminado.
+[Pipeline] echo
+[2026-11-21T18:32:25.812Z] ¡Despliegue exitoso! App en http://localhost:8081/api/zones
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
