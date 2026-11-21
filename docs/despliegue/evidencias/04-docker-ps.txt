@@ -1,0 +1,3 @@
+NAMES       IMAGE                      STATUS                    PORTS
+zoo-app     zoo-fantastic-app:latest   Up 7 seconds              0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp
+zoo-mysql   mysql:8.0                  Up 18 minutes (healthy)   0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp
