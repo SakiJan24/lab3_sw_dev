@@ -1,0 +1,6 @@
+PS> Invoke-WebRequest http://localhost:8081/api/zones
+
+StatusCode        : 200
+StatusDescription : 
+Content-Type      : application/json
+Content           : [{"id":1,"name":"Zona N1","description":"Zona de prueba 1 para evidencia N+1","capacity":5,"creatureCount":0},{"id":2,"name":"Zona N2","description":"Zona de prueba 2 para evidencia N+1","capacity":5,"creatureCount":2},{"id":3,"name":"Zona N3","description":"Zona de prueba 3 para evidencia N+1","capacity":5,"creatureCount":1},{"id":13,"name":"Zona de carga JMeter 20261022-105555","description":"Zona creada por el setUp de JMeter para la prueba de carga","capacity":50,"creatureCount":56}]
